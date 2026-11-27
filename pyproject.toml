@@ -1,0 +1,18 @@
+[project]
+name = "test-triage-agent"
+version = "0.1.0"
+description = "Claude agent that triages failed test runs: product bug, test bug, flaky or environment."
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.12"
+dependencies = []
+
+[dependency-groups]
+dev = ["pytest>=8", "ruff>=0.8"]
+
+[tool.ruff]
+line-length = 100
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
