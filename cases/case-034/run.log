@@ -1,0 +1,34 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.12.4, pytest-9.2.0, pluggy-1.7.0
+rootdir: /builds/orders-app
+configfile: pytest.ini
+testpaths: tests
+plugins: playwright-0.10.0, anyio-4.16.0
+collected 21 items
+
+tests/test_api.py .....F.........                                        [ 71%]
+tests/test_ui.py ......                                                  [100%]
+
+=================================== FAILURES ===================================
+____________________ test_discount_code_is_case_insensitive ____________________
+
+client = <starlette.testclient.TestClient object at 0x10cdae060>
+
+    def test_discount_code_is_case_insensitive(client):
+>       assert make(client, discount_code="save10")["discount_code"] == "SAVE10"
+E       AssertionError: assert 'save10' == 'SAVE10'
+E         
+E         - SAVE10
+E         + save10
+
+tests/test_api.py:36: AssertionError
+=============================== warnings summary ===============================
+../../../../../../../../opt/venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /opt/venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+- generated xml file: /builds/orders-app/junit.xml -
+=========================== short test summary info ============================
+FAILED tests/test_api.py::test_discount_code_is_case_insensitive - AssertionE...
+=================== 1 failed, 20 passed, 1 warning in 1.38s ====================

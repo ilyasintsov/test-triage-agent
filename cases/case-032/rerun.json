@@ -1,0 +1,5 @@
+{
+  "failed": [
+    "tests.test_api::test_search_is_case_insensitive"
+  ]
+}

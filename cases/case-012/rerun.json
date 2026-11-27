@@ -1,0 +1,5 @@
+{
+  "failed": [
+    "tests.test_ui::test_blank_item_shows_error[chromium]"
+  ]
+}

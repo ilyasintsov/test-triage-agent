@@ -1,0 +1,42 @@
+[
+  {
+    "sha": "bf67d69f281ef25474bbea4d156f0268f04eb08e",
+    "author": "Priya Raman <priya.raman@example.com>",
+    "date": "2026-11-17T14:26:00+01:00",
+    "message": "chore: add make targets",
+    "files": [
+      "Makefile"
+    ],
+    "diff": "diff --git a/Makefile b/Makefile\nnew file mode 100644\nindex 0000000..36f3e5d\n--- /dev/null\n+++ b/Makefile\n@@ -0,0 +1,5 @@\n+test:\n+\tpytest\n+\n+run:\n+\tuvicorn app:app --reload\n"
+  },
+  {
+    "sha": "09cfb6a4697c8f37fa3070735d77b461e793212a",
+    "author": "Tom Okafor <tom.okafor@example.com>",
+    "date": "2026-11-16T21:18:00+01:00",
+    "message": "refactor: simplify order lookup",
+    "files": [
+      "app.py"
+    ],
+    "diff": "diff --git a/app.py b/app.py\nindex acc3b72..96ff61e 100644\n--- a/app.py\n+++ b/app.py\n@@ -69,8 +69,6 @@ def list_orders(page: int = 1, size: int = 10, q: str = \"\") -> list[dict]:\n def get_row(order_id: int) -> sqlite3.Row:\n     with closing(db()) as conn:\n         row = conn.execute(\"SELECT * FROM orders WHERE id = ?\", (order_id,)).fetchone()\n-    if row is None:\n-        raise HTTPException(404, \"order not found\")\n     return row\n \n \n"
+  },
+  {
+    "sha": "a48b83aa45a9e2e23d6d5ef044f485fdf173b0c4",
+    "author": "Sara Novak <sara.novak@example.com>",
+    "date": "2026-11-15T15:20:00+01:00",
+    "message": "style(ui): tighten list spacing",
+    "files": [
+      "index.html"
+    ],
+    "diff": "diff --git a/index.html b/index.html\nindex ee72d4e..7a4acb2 100644\n--- a/index.html\n+++ b/index.html\n@@ -3,6 +3,7 @@\n <head>\n <meta charset=\"utf-8\">\n <title>Orders</title>\n+<style>li { margin: 4px 0; }</style>\n </head>\n <body>\n <h1>Orders</h1>\n"
+  },
+  {
+    "sha": "22fa3e71a7860100642516efbe43f7ddbed43600",
+    "author": "Priya Raman <priya.raman@example.com>",
+    "date": "2026-11-14T22:58:00+01:00",
+    "message": "docs: describe local setup",
+    "files": [
+      "README.md"
+    ],
+    "diff": "diff --git a/README.md b/README.md\nindex 64b3e83..b6546c4 100644\n--- a/README.md\n+++ b/README.md\n@@ -7,3 +7,5 @@ copies of it.\n ```bash\n uv run pytest\n ```\n+\n+Run locally: `make run`.\n"
+  }
+]

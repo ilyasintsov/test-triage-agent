@@ -1,0 +1,52 @@
+[
+  {
+    "sha": "dc6c2f96c50bbf463afb61c2a36ad783a3a23ae0",
+    "author": "Tom Okafor <tom.okafor@example.com>",
+    "date": "2026-11-10T19:26:00+01:00",
+    "message": "chore: add make targets",
+    "files": [
+      "Makefile"
+    ],
+    "diff": "diff --git a/Makefile b/Makefile\nnew file mode 100644\nindex 0000000..36f3e5d\n--- /dev/null\n+++ b/Makefile\n@@ -0,0 +1,5 @@\n+test:\n+\tpytest\n+\n+run:\n+\tuvicorn app:app --reload\n"
+  },
+  {
+    "sha": "190c39e09423feb272749d1ea34842ce72b0e31e",
+    "author": "Lukas Berg <lukas.berg@example.com>",
+    "date": "2026-11-09T19:32:00+01:00",
+    "message": "style(ui): tighten list spacing",
+    "files": [
+      "index.html"
+    ],
+    "diff": "diff --git a/index.html b/index.html\nindex ee72d4e..7a4acb2 100644\n--- a/index.html\n+++ b/index.html\n@@ -3,6 +3,7 @@\n <head>\n <meta charset=\"utf-8\">\n <title>Orders</title>\n+<style>li { margin: 4px 0; }</style>\n </head>\n <body>\n <h1>Orders</h1>\n"
+  },
+  {
+    "sha": "9d9820f16c4a25d8a5a614b5942f7769a792acdd",
+    "author": "Lukas Berg <lukas.berg@example.com>",
+    "date": "2026-11-09T10:45:00+01:00",
+    "message": "test: use an obviously missing id",
+    "files": [
+      "tests/test_api.py"
+    ],
+    "diff": "diff --git a/tests/test_api.py b/tests/test_api.py\nindex f2da156..6626cb0 100644\n--- a/tests/test_api.py\n+++ b/tests/test_api.py\n@@ -58,7 +58,7 @@ def test_search_is_case_insensitive(client):\n \n \n def test_missing_order_is_404(client):\n-    assert client.get(\"/orders/999999\").status_code == 404\n+    assert client.get(\"/orders/missing\").status_code == 404\n \n \n def test_total_applies_tax(client):\n"
+  },
+  {
+    "sha": "d5192ef8790039c030deac0aa64aacbb41f4e9ca",
+    "author": "Sara Novak <sara.novak@example.com>",
+    "date": "2026-11-08T17:35:00+01:00",
+    "message": "feat: add version endpoint",
+    "files": [
+      "app.py"
+    ],
+    "diff": "diff --git a/app.py b/app.py\nindex acc3b72..7a0c50e 100644\n--- a/app.py\n+++ b/app.py\n@@ -104,3 +104,8 @@ def delete_order(order_id: int) -> None:\n @app.get(\"/\", response_class=HTMLResponse)\n def index() -> str:\n     return INDEX_HTML\n+\n+\n+@app.get(\"/version\")\n+def version() -> dict:\n+    return {\"version\": os.environ.get(\"APP_VERSION\", \"dev\")}\n"
+  },
+  {
+    "sha": "9a67be073aab997d9f057cf0e70c0ce07f489001",
+    "author": "Lukas Berg <lukas.berg@example.com>",
+    "date": "2026-11-08T14:49:00+01:00",
+    "message": "docs: changelog for 1.4.0",
+    "files": [
+      "CHANGELOG.md"
+    ],
+    "diff": "diff --git a/CHANGELOG.md b/CHANGELOG.md\nnew file mode 100644\nindex 0000000..5f6104e\n--- /dev/null\n+++ b/CHANGELOG.md\n@@ -0,0 +1,3 @@\n+## 1.4.0\n+\n+- Faster order list\n"
+  }
+]

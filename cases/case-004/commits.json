@@ -1,0 +1,52 @@
+[
+  {
+    "sha": "94ea09c92364125ec47c8a4dbb6a817d5aadd5f1",
+    "author": "Sara Novak <sara.novak@example.com>",
+    "date": "2026-11-12T14:50:00+01:00",
+    "message": "style(ui): tighten list spacing",
+    "files": [
+      "index.html"
+    ],
+    "diff": "diff --git a/index.html b/index.html\nindex ee72d4e..7a4acb2 100644\n--- a/index.html\n+++ b/index.html\n@@ -3,6 +3,7 @@\n <head>\n <meta charset=\"utf-8\">\n <title>Orders</title>\n+<style>li { margin: 4px 0; }</style>\n </head>\n <body>\n <h1>Orders</h1>\n"
+  },
+  {
+    "sha": "a2d1e52bcf81de000efdaea3222f7af7c0dabb7a",
+    "author": "Lukas Berg <lukas.berg@example.com>",
+    "date": "2026-11-11T19:57:00+01:00",
+    "message": "test: cover bulk create",
+    "files": [
+      "tests/test_api.py"
+    ],
+    "diff": "diff --git a/tests/test_api.py b/tests/test_api.py\nindex f2da156..3864eb4 100644\n--- a/tests/test_api.py\n+++ b/tests/test_api.py\n@@ -90,3 +90,12 @@ def test_delete_order(client):\n \n def test_delete_missing_order_is_404(client):\n     assert client.delete(\"/orders/999999\").status_code == 404\n+\n+\n+def test_bulk_create_lists_every_item(client):\n+    items = {\"pen\", \"cup\", \"hat\"}\n+    for item in items:\n+        make(client, item=item)\n+    listed = [o[\"item\"] for o in client.get(\"/orders\").json()]\n+    assert sorted(listed) == sorted(items)\n+    assert listed[-1] == \"pen\"\n"
+  },
+  {
+    "sha": "2ee916016011fddffd7e83349c60c1f3f624b725",
+    "author": "Tom Okafor <tom.okafor@example.com>",
+    "date": "2026-11-11T12:12:00+01:00",
+    "message": "chore: add make targets",
+    "files": [
+      "Makefile"
+    ],
+    "diff": "diff --git a/Makefile b/Makefile\nnew file mode 100644\nindex 0000000..36f3e5d\n--- /dev/null\n+++ b/Makefile\n@@ -0,0 +1,5 @@\n+test:\n+\tpytest\n+\n+run:\n+\tuvicorn app:app --reload\n"
+  },
+  {
+    "sha": "3221e7cedf6ad1a5625f4613467fccc581c880d9",
+    "author": "Lukas Berg <lukas.berg@example.com>",
+    "date": "2026-11-11T02:37:00+01:00",
+    "message": "chore: add editorconfig",
+    "files": [
+      ".editorconfig"
+    ],
+    "diff": "diff --git a/.editorconfig b/.editorconfig\nnew file mode 100644\nindex 0000000..2a611d7\n--- /dev/null\n+++ b/.editorconfig\n@@ -0,0 +1,4 @@\n+root = true\n+\n+[*]\n+indent_size = 4\n"
+  },
+  {
+    "sha": "7ee3e682dd69952250c6e29924dc8ba2ff0aa6ce",
+    "author": "Maya Chen <maya.chen@example.com>",
+    "date": "2026-11-10T06:37:00+01:00",
+    "message": "test: document live server fixture",
+    "files": [
+      "tests/conftest.py"
+    ],
+    "diff": "diff --git a/tests/conftest.py b/tests/conftest.py\nindex 1cd79d0..a7617ec 100644\n--- a/tests/conftest.py\n+++ b/tests/conftest.py\n@@ -26,6 +26,7 @@ def client():\n \n @pytest.fixture(scope=\"session\")\n def base_url():\n+    \"\"\"Serve the app on a real port so Playwright can load it.\"\"\"\n     port = int(os.environ.get(\"APP_PORT\", \"8765\"))\n     server = uvicorn.Server(uvicorn.Config(app, port=port, log_level=\"warning\"))\n     thread = threading.Thread(target=server.run, daemon=True)\n"
+  }
+]

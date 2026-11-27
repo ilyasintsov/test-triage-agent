@@ -1,0 +1,22 @@
+[
+  {
+    "sha": "a8490f4481ede7ca0aa8241ec7933b6e5c3057d6",
+    "author": "Tom Okafor <tom.okafor@example.com>",
+    "date": "2026-11-12T11:32:00+01:00",
+    "message": "style(ui): tighten list spacing",
+    "files": [
+      "index.html"
+    ],
+    "diff": "diff --git a/index.html b/index.html\nindex ee72d4e..7a4acb2 100644\n--- a/index.html\n+++ b/index.html\n@@ -3,6 +3,7 @@\n <head>\n <meta charset=\"utf-8\">\n <title>Orders</title>\n+<style>li { margin: 4px 0; }</style>\n </head>\n <body>\n <h1>Orders</h1>\n"
+  },
+  {
+    "sha": "de08f346e12e6bcce128d593462f9bb5cc81cab1",
+    "author": "Sara Novak <sara.novak@example.com>",
+    "date": "2026-11-11T23:24:00+01:00",
+    "message": "docs: describe local setup",
+    "files": [
+      "README.md"
+    ],
+    "diff": "diff --git a/README.md b/README.md\nindex 64b3e83..b6546c4 100644\n--- a/README.md\n+++ b/README.md\n@@ -7,3 +7,5 @@ copies of it.\n ```bash\n uv run pytest\n ```\n+\n+Run locally: `make run`.\n"
+  }
+]

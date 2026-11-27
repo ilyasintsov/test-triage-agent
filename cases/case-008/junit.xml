@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="21" time="4.482" timestamp="2026-11-27T11:51:07.133312+01:00" hostname="ci-runner-07"><testcase classname="tests.test_api" name="test_create_order_can_be_fetched" time="0.007" /><testcase classname="tests.test_api" name="test_item_is_trimmed" time="0.003" /><testcase classname="tests.test_api" name="test_blank_item_is_rejected" time="0.002" /><testcase classname="tests.test_api" name="test_zero_qty_is_rejected" time="0.002" /><testcase classname="tests.test_api" name="test_unknown_discount_code_is_rejected" time="0.002" /><testcase classname="tests.test_api" name="test_discount_code_is_case_insensitive" time="0.003" /><testcase classname="tests.test_api" name="test_list_is_newest_first" time="0.006" /><testcase classname="tests.test_api" name="test_pagination" time="0.012" /><testcase classname="tests.test_api" name="test_search_is_case_insensitive" time="0.006" /><testcase classname="tests.test_api" name="test_missing_order_is_404" time="0.002" /><testcase classname="tests.test_api" name="test_total_applies_tax" time="0.004" /><testcase classname="tests.test_api" name="test_total_rounds_tax_to_nearest_cent" time="0.004" /><testcase classname="tests.test_api" name="test_discount_is_applied_before_tax" time="0.004" /><testcase classname="tests.test_api" name="test_delete_order" time="0.005" /><testcase classname="tests.test_api" name="test_delete_missing_order_is_404" time="0.002" /><testcase classname="tests.test_ui" name="test_add_order_shows_in_list[chromium]" time="0.564" /><testcase classname="tests.test_ui" name="test_newest_order_is_first[chromium]" time="0.244" /><testcase classname="tests.test_ui" name="test_form_clears_after_add[chromium]" time="0.125" /><testcase classname="tests.test_ui" name="test_blank_item_shows_error[chromium]" time="3.107"><failure message="AssertionError: Locator expected to have text 'Item is required'&#10;Actual value: item must not be empty &#10;Call log:&#10;  - Expect &quot;to_have_text&quot; get_by_role(&quot;alert&quot;) with timeout 3000ms&#10;  - waiting for get_by_role(&quot;alert&quot;)&#10;    - locator resolved to &lt;p id=&quot;error&quot; role=&quot;alert&quot;&gt;&lt;/p&gt;&#10;    - unexpected value &quot;&quot;&#10;    9 × locator resolved to &lt;p id=&quot;error&quot; role=&quot;alert&quot;&gt;item must not be empty&lt;/p&gt;&#10;      - unexpected value &quot;item must not be empty&quot;&#10;&#10;Aria snapshot:&#10;- alert: item must not be empty">page = &lt;Page url='http://127.0.0.1:8765/'&gt;
+
+    def test_blank_item_shows_error(page: Page):
+        page.goto("/")
+        add(page, "   ")
+&gt;       expect(page.get_by_role("alert")).to_have_text("Item is required")
+E       AssertionError: Locator expected to have text 'Item is required'
+E       Actual value: item must not be empty 
+E       Call log:
+E         - Expect "to_have_text" get_by_role("alert") with timeout 3000ms
+E         - waiting for get_by_role("alert")
+E           - locator resolved to &lt;p id="error" role="alert"&gt;&lt;/p&gt;
+E           - unexpected value ""
+E           9 × locator resolved to &lt;p id="error" role="alert"&gt;item must not be empty&lt;/p&gt;
+E             - unexpected value "item must not be empty"
+E       
+E       Aria snapshot:
+E       - alert: item must not be empty
+
+tests/test_ui.py:43: AssertionError</failure></testcase><testcase classname="tests.test_ui" name="test_delete_removes_order[chromium]" time="0.224" /><testcase classname="tests.test_ui" name="test_existing_orders_load_on_open[chromium]" time="0.090" /></testsuite></testsuites>

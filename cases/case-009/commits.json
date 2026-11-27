@@ -1,0 +1,43 @@
+[
+  {
+    "sha": "dbccfba82e618c884b01b409e183a99cb0affc9f",
+    "author": "Lukas Berg <lukas.berg@example.com>",
+    "date": "2026-11-10T18:52:00+01:00",
+    "message": "refactor: compute tax from subtotal",
+    "files": [
+      "app.py"
+    ],
+    "diff": "diff --git a/app.py b/app.py\nindex e14edc6..be7cece 100644\n--- a/app.py\n+++ b/app.py\n@@ -84,7 +84,7 @@ def order_total(order_id: int) -> dict:\n     row = get_row(order_id)\n     subtotal = row[\"qty\"] * row[\"price_cents\"]\n     discount = subtotal * DISCOUNTS.get(row[\"discount_code\"], 0) // 100\n-    tax = round((subtotal - discount) * TAX_RATE)\n+    tax = round(subtotal * TAX_RATE)\n     return {\n         \"subtotal_cents\": subtotal,\n         \"discount_cents\": discount,\n"
+  },
+  {
+    "sha": "7c8cfca4d1d944d819ead3e7fb84582ff408da16",
+    "author": "Maya Chen <maya.chen@example.com>",
+    "date": "2026-11-10T03:21:00+01:00",
+    "message": "feat: add health endpoint",
+    "files": [
+      "app.py",
+      "tests/test_api.py"
+    ],
+    "diff": "diff --git a/app.py b/app.py\nindex 7a0c50e..e14edc6 100644\n--- a/app.py\n+++ b/app.py\n@@ -109,3 +109,8 @@ def index() -> str:\n @app.get(\"/version\")\n def version() -> dict:\n     return {\"version\": os.environ.get(\"APP_VERSION\", \"dev\")}\n+\n+\n+@app.get(\"/health\")\n+def health() -> dict:\n+    return {\"status\": \"ok\"}\ndiff --git a/tests/test_api.py b/tests/test_api.py\nindex f2da156..f9c711f 100644\n--- a/tests/test_api.py\n+++ b/tests/test_api.py\n@@ -90,3 +90,7 @@ def test_delete_order(client):\n \n def test_delete_missing_order_is_404(client):\n     assert client.delete(\"/orders/999999\").status_code == 404\n+\n+\n+def test_health(client):\n+    assert client.get(\"/health\").json() == {\"status\": \"ok\"}\n"
+  },
+  {
+    "sha": "b14320cb79b0a5af114cc22bc70b51ec59067552",
+    "author": "Sara Novak <sara.novak@example.com>",
+    "date": "2026-11-09T19:56:00+01:00",
+    "message": "chore: add editorconfig",
+    "files": [
+      ".editorconfig"
+    ],
+    "diff": "diff --git a/.editorconfig b/.editorconfig\nnew file mode 100644\nindex 0000000..2a611d7\n--- /dev/null\n+++ b/.editorconfig\n@@ -0,0 +1,4 @@\n+root = true\n+\n+[*]\n+indent_size = 4\n"
+  },
+  {
+    "sha": "cd2f04eb4ecdd6f211756ef184d60e68943ddd4c",
+    "author": "Tom Okafor <tom.okafor@example.com>",
+    "date": "2026-11-09T11:05:00+01:00",
+    "message": "feat: add version endpoint",
+    "files": [
+      "app.py"
+    ],
+    "diff": "diff --git a/app.py b/app.py\nindex acc3b72..7a0c50e 100644\n--- a/app.py\n+++ b/app.py\n@@ -104,3 +104,8 @@ def delete_order(order_id: int) -> None:\n @app.get(\"/\", response_class=HTMLResponse)\n def index() -> str:\n     return INDEX_HTML\n+\n+\n+@app.get(\"/version\")\n+def version() -> dict:\n+    return {\"version\": os.environ.get(\"APP_VERSION\", \"dev\")}\n"
+  }
+]

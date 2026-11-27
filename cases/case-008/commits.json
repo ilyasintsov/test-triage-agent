@@ -1,0 +1,32 @@
+[
+  {
+    "sha": "6554e42104ae92fdf1e512d6c8df46615aa6901a",
+    "author": "Tom Okafor <tom.okafor@example.com>",
+    "date": "2026-11-15T07:43:00+01:00",
+    "message": "docs: describe local setup",
+    "files": [
+      "README.md"
+    ],
+    "diff": "diff --git a/README.md b/README.md\nindex 64b3e83..b6546c4 100644\n--- a/README.md\n+++ b/README.md\n@@ -7,3 +7,5 @@ copies of it.\n ```bash\n uv run pytest\n ```\n+\n+Run locally: `make run`.\n"
+  },
+  {
+    "sha": "e70e41000e29c413252abb7689aaf0182c58681b",
+    "author": "Maya Chen <maya.chen@example.com>",
+    "date": "2026-11-14T01:11:00+01:00",
+    "message": "test(ui): update blank item error copy",
+    "files": [
+      "tests/test_ui.py"
+    ],
+    "diff": "diff --git a/tests/test_ui.py b/tests/test_ui.py\nindex 4509752..50bc5bd 100644\n--- a/tests/test_ui.py\n+++ b/tests/test_ui.py\n@@ -40,7 +40,7 @@ def test_form_clears_after_add(page: Page):\n def test_blank_item_shows_error(page: Page):\n     page.goto(\"/\")\n     add(page, \"   \")\n-    expect(page.get_by_role(\"alert\")).to_have_text(\"item must not be empty\")\n+    expect(page.get_by_role(\"alert\")).to_have_text(\"Item is required\")\n \n \n def test_delete_removes_order(page: Page):\n"
+  },
+  {
+    "sha": "8d99746dd33e5317a81b65c72cc4869098ac5efe",
+    "author": "Maya Chen <maya.chen@example.com>",
+    "date": "2026-11-13T12:34:00+01:00",
+    "message": "feat: add version endpoint",
+    "files": [
+      "app.py"
+    ],
+    "diff": "diff --git a/app.py b/app.py\nindex acc3b72..7a0c50e 100644\n--- a/app.py\n+++ b/app.py\n@@ -104,3 +104,8 @@ def delete_order(order_id: int) -> None:\n @app.get(\"/\", response_class=HTMLResponse)\n def index() -> str:\n     return INDEX_HTML\n+\n+\n+@app.get(\"/version\")\n+def version() -> dict:\n+    return {\"version\": os.environ.get(\"APP_VERSION\", \"dev\")}\n"
+  }
+]

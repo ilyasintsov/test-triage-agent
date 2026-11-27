@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="7" skipped="0" tests="21" time="13.332" timestamp="2026-11-27T11:57:13.440641+01:00" hostname="ci-runner-07"><testcase classname="tests.test_api" name="test_create_order_can_be_fetched" time="0.007" /><testcase classname="tests.test_api" name="test_item_is_trimmed" time="0.003" /><testcase classname="tests.test_api" name="test_blank_item_is_rejected" time="0.003" /><testcase classname="tests.test_api" name="test_zero_qty_is_rejected" time="0.003" /><testcase classname="tests.test_api" name="test_unknown_discount_code_is_rejected" time="0.002" /><testcase classname="tests.test_api" name="test_discount_code_is_case_insensitive" time="0.003" /><testcase classname="tests.test_api" name="test_list_is_newest_first" time="0.006"><failure message="assert [] == [2, 1]&#10;  &#10;  Right contains 2 more items, first extra item: 2&#10;  Use -v to get more diff">client = &lt;starlette.testclient.TestClient object at 0x10ab9fcb0&gt;
+
+    def test_list_is_newest_first(client):
+        first = make(client, item="pen")
+        second = make(client, item="cup")
+&gt;       assert [o["id"] for o in client.get("/orders").json()] == [second["id"], first["id"]]
+E       assert [] == [2, 1]
+E         
+E         Right contains 2 more items, first extra item: 2
+E         Use -v to get more diff
+
+tests/test_api.py:42: AssertionError</failure></testcase><testcase classname="tests.test_api" name="test_pagination" time="0.013"><failure message="assert [3, 2] == [5, 4]&#10;  &#10;  At index 0 diff: 3 != 5&#10;  Use -v to get more diff">client = &lt;starlette.testclient.TestClient object at 0x10ab9f860&gt;
+
+    def test_pagination(client):
+        ids = [make(client, item=f"item{i}")["id"] for i in range(5)]
+        newest_first = ids[::-1]
+        page1 = client.get("/orders", params={"size": 2, "page": 1}).json()
+        page3 = client.get("/orders", params={"size": 2, "page": 3}).json()
+&gt;       assert [o["id"] for o in page1] == newest_first[:2]
+E       assert [3, 2] == [5, 4]
+E         
+E         At index 0 diff: 3 != 5
+E         Use -v to get more diff
+
+tests/test_api.py:50: AssertionError</failure></testcase><testcase classname="tests.test_api" name="test_search_is_case_insensitive" time="0.006"><failure message="AssertionError: assert [] == ['Blue Pen']&#10;  &#10;  Right contains one more item: 'Blue Pen'&#10;  Use -v to get more diff">client = &lt;starlette.testclient.TestClient object at 0x10abcc6e0&gt;
+
+    def test_search_is_case_insensitive(client):
+        make(client, item="Blue Pen")
+        make(client, item="cup")
+&gt;       assert [o["item"] for o in client.get("/orders", params={"q": "blue"}).json()] == ["Blue Pen"]
+E       AssertionError: assert [] == ['Blue Pen']
+E         
+E         Right contains one more item: 'Blue Pen'
+E         Use -v to get more diff
+
+tests/test_api.py:57: AssertionError</failure></testcase><testcase classname="tests.test_api" name="test_missing_order_is_404" time="0.002" /><testcase classname="tests.test_api" name="test_total_applies_tax" time="0.004" /><testcase classname="tests.test_api" name="test_total_rounds_tax_to_nearest_cent" time="0.004" /><testcase classname="tests.test_api" name="test_discount_is_applied_before_tax" time="0.004" /><testcase classname="tests.test_api" name="test_delete_order" time="0.006" /><testcase classname="tests.test_api" name="test_delete_missing_order_is_404" time="0.002" /><testcase classname="tests.test_ui" name="test_add_order_shows_in_list[chromium]" time="3.448"><failure message="AssertionError: Locator expected to have count '1'&#10;Actual value: 0 &#10;Call log:&#10;  - Expect &quot;to_have_count&quot; locator(&quot;#orders li&quot;) with timeout 3000ms&#10;  - waiting for locator(&quot;#orders li&quot;)&#10;    10 × locator resolved to 0 elements&#10;       - unexpected value &quot;0&quot;">page = &lt;Page url='http://127.0.0.1:8765/'&gt;
+
+    def test_add_order_shows_in_list(page: Page):
+        page.goto("/")
+        add(page, "pen", qty="2")
+&gt;       expect(page.locator("#orders li")).to_have_count(1)
+E       AssertionError: Locator expected to have count '1'
+E       Actual value: 0 
+E       Call log:
+E         - Expect "to_have_count" locator("#orders li") with timeout 3000ms
+E         - waiting for locator("#orders li")
+E           10 × locator resolved to 0 elements
+E              - unexpected value "0"
+
+tests/test_ui.py:22: AssertionError</failure></testcase><testcase classname="tests.test_ui" name="test_newest_order_is_first[chromium]" time="3.124"><failure message="AssertionError: Locator expected to have count '1'&#10;Actual value: 0 &#10;Call log:&#10;  - Expect &quot;to_have_count&quot; locator(&quot;#orders li&quot;) with timeout 3000ms&#10;  - waiting for locator(&quot;#orders li&quot;)&#10;    10 × locator resolved to 0 elements&#10;       - unexpected value &quot;0&quot;">page = &lt;Page url='http://127.0.0.1:8765/'&gt;
+
+    def test_newest_order_is_first(page: Page):
+        page.goto("/")
+        add(page, "pen")
+&gt;       expect(page.locator("#orders li")).to_have_count(1)
+E       AssertionError: Locator expected to have count '1'
+E       Actual value: 0 
+E       Call log:
+E         - Expect "to_have_count" locator("#orders li") with timeout 3000ms
+E         - waiting for locator("#orders li")
+E           10 × locator resolved to 0 elements
+E              - unexpected value "0"
+
+tests/test_ui.py:29: AssertionError</failure></testcase><testcase classname="tests.test_ui" name="test_form_clears_after_add[chromium]" time="0.152" /><testcase classname="tests.test_ui" name="test_blank_item_shows_error[chromium]" time="0.123" /><testcase classname="tests.test_ui" name="test_delete_removes_order[chromium]" time="3.104"><failure message="playwright._impl._errors.TimeoutError: Locator.click: Timeout 3000ms exceeded.&#10;Call log:&#10;  - waiting for locator(&quot;#orders li&quot;).first.get_by_role(&quot;button&quot;, name=&quot;Delete&quot;)">page = &lt;Page url='http://127.0.0.1:8765/'&gt;
+
+    def test_delete_removes_order(page: Page):
+        page.goto("/")
+        add(page, "pen")
+&gt;       page.locator("#orders li").first.get_by_role("button", name="Delete").click()
+
+tests/test_ui.py:49: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/opt/venv/lib/python3.12/site-packages/playwright/sync_api/_generated.py:11045: in click
+    self._sync(
+/opt/venv/lib/python3.12/site-packages/playwright/_impl/locator.py:222: in click
+    return await self._frame.click(
+/opt/venv/lib/python3.12/site-packages/playwright/_impl/frame.py:587: in click
+    return await self._channel.click(
+/opt/venv/lib/python3.12/site-packages/playwright/_impl/channel_owner.py:387: in finish
+    raise e from None
+/opt/venv/lib/python3.12/site-packages/playwright/_impl/channel_owner.py:352: in finish
+    result = await zone.run_async(lambda: awaitable)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = &lt;playwright._impl.utils.zones.Zone object at 0x10ad90bc0&gt;
+func = &lt;function ChannelOwner._wrap_api_call.&lt;locals&gt;.finish.&lt;locals&gt;.&lt;lambda&gt; at 0x10ad84720&gt;
+
+    async def run_async(self, func: Callable[[], Awaitable[R]]) -&gt; R:
+        # Python: run() of an async function. The coroutine runs when it is awaited,
+        # so the zone must be current while it is awaited, not while it is created.
+        token = _async_local_storage.set(self)
+        try:
+&gt;           return await func()
+                   ^^^^^^^^^^^^
+E           playwright._impl._errors.TimeoutError: Locator.click: Timeout 3000ms exceeded.
+E           Call log:
+E             - waiting for locator("#orders li").first.get_by_role("button", name="Delete")
+
+/opt/venv/lib/python3.12/site-packages/playwright/_impl/utils/zones.py:58: TimeoutError</failure></testcase><testcase classname="tests.test_ui" name="test_existing_orders_load_on_open[chromium]" time="3.119"><failure message="AssertionError: Locator expected to have count '2'&#10;Actual value: 0 &#10;Call log:&#10;  - Expect &quot;to_have_count&quot; locator(&quot;#orders li&quot;) with timeout 3000ms&#10;  - waiting for locator(&quot;#orders li&quot;)&#10;    10 × locator resolved to 0 elements&#10;       - unexpected value &quot;0&quot;">page = &lt;Page url='http://127.0.0.1:8765/'&gt;
+client = &lt;starlette.testclient.TestClient object at 0x10ad924b0&gt;
+
+    def test_existing_orders_load_on_open(page: Page, client):
+        client.post("/orders", json={"item": "pen", "qty": 1, "price_cents": 100})
+        client.post("/orders", json={"item": "cup", "qty": 1, "price_cents": 100})
+        page.goto("/")
+&gt;       expect(page.locator("#orders li")).to_have_count(2)
+E       AssertionError: Locator expected to have count '2'
+E       Actual value: 0 
+E       Call log:
+E         - Expect "to_have_count" locator("#orders li") with timeout 3000ms
+E         - waiting for locator("#orders li")
+E           10 × locator resolved to 0 elements
+E              - unexpected value "0"
+
+tests/test_ui.py:57: AssertionError</failure></testcase></testsuite></testsuites>

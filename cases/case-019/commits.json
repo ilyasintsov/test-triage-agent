@@ -1,0 +1,32 @@
+[
+  {
+    "sha": "75840e4e8151433b90c59201cb8264ce89fdfb31",
+    "author": "Priya Raman <priya.raman@example.com>",
+    "date": "2026-11-08T14:57:00+01:00",
+    "message": "docs: explain discount table",
+    "files": [
+      "app.py"
+    ],
+    "diff": "diff --git a/app.py b/app.py\nindex acc3b72..0cda257 100644\n--- a/app.py\n+++ b/app.py\n@@ -8,6 +8,7 @@ from fastapi.responses import HTMLResponse\n from pydantic import BaseModel\n \n TAX_RATE = float(os.environ.get(\"TAX_RATE\", \"0.2\"))\n+# Percent off the subtotal, applied before tax.\n DISCOUNTS = {\"SAVE10\": 10, \"SAVE25\": 25}\n INDEX_HTML = (Path(__file__).parent / \"index.html\").read_text()\n \n"
+  },
+  {
+    "sha": "a71b183ff6354e0503ef842e49e6bbbb57ec2039",
+    "author": "Priya Raman <priya.raman@example.com>",
+    "date": "2026-11-07T23:01:00+01:00",
+    "message": "test: repeated listing is served from cache",
+    "files": [
+      "tests/test_api.py"
+    ],
+    "diff": "diff --git a/tests/test_api.py b/tests/test_api.py\nindex f2da156..19a0f9a 100644\n--- a/tests/test_api.py\n+++ b/tests/test_api.py\n@@ -1,3 +1,6 @@\n+import time\n+\n+\n def make(client, item=\"pen\", qty=1, price_cents=100, **extra):\n     response = client.post(\n         \"/orders\", json={\"item\": item, \"qty\": qty, \"price_cents\": price_cents, **extra}\n@@ -90,3 +93,14 @@ def test_delete_order(client):\n \n def test_delete_missing_order_is_404(client):\n     assert client.delete(\"/orders/999999\").status_code == 404\n+\n+\n+def test_repeat_listing_is_cached(client):\n+    for i in range(20):\n+        make(client, item=f\"item{i}\")\n+    timings = []\n+    for _ in range(3):\n+        start = time.perf_counter()\n+        client.get(\"/orders\")\n+        timings.append(time.perf_counter() - start)\n+    assert timings[2] <= timings[1]\n"
+  },
+  {
+    "sha": "0bdbbc8694da51a3a2540329c6e6625b0ccbb142",
+    "author": "Lukas Berg <lukas.berg@example.com>",
+    "date": "2026-11-07T16:31:00+01:00",
+    "message": "chore: add make targets",
+    "files": [
+      "Makefile"
+    ],
+    "diff": "diff --git a/Makefile b/Makefile\nnew file mode 100644\nindex 0000000..36f3e5d\n--- /dev/null\n+++ b/Makefile\n@@ -0,0 +1,5 @@\n+test:\n+\tpytest\n+\n+run:\n+\tuvicorn app:app --reload\n"
+  }
+]

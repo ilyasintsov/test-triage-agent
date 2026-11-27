@@ -1,0 +1,43 @@
+[
+  {
+    "sha": "882757c0aeff5a683b09b42c3037e5850a58af60",
+    "author": "Priya Raman <priya.raman@example.com>",
+    "date": "2026-11-24T16:14:00+01:00",
+    "message": "docs: describe local setup",
+    "files": [
+      "README.md"
+    ],
+    "diff": "diff --git a/README.md b/README.md\nindex 64b3e83..b6546c4 100644\n--- a/README.md\n+++ b/README.md\n@@ -7,3 +7,5 @@ copies of it.\n ```bash\n uv run pytest\n ```\n+\n+Run locally: `make run`.\n"
+  },
+  {
+    "sha": "3a0191c22773867b3b10412f582045affa1be3ff",
+    "author": "Priya Raman <priya.raman@example.com>",
+    "date": "2026-11-24T06:29:00+01:00",
+    "message": "test: fix expected tax for multi-quantity order",
+    "files": [
+      "tests/test_api.py"
+    ],
+    "diff": "diff --git a/tests/test_api.py b/tests/test_api.py\nindex f9c711f..4aceada 100644\n--- a/tests/test_api.py\n+++ b/tests/test_api.py\n@@ -66,8 +66,8 @@ def test_total_applies_tax(client):\n     assert client.get(f\"/orders/{order['id']}/total\").json() == {\n         \"subtotal_cents\": 2997,\n         \"discount_cents\": 0,\n-        \"tax_cents\": 599,\n-        \"total_cents\": 3596,\n+        \"tax_cents\": 600,\n+        \"total_cents\": 3597,\n     }\n \n \n"
+  },
+  {
+    "sha": "b049dd856d253de27f59deb1bd577b67925a49aa",
+    "author": "Tom Okafor <tom.okafor@example.com>",
+    "date": "2026-11-23T11:07:00+01:00",
+    "message": "feat: add health endpoint",
+    "files": [
+      "app.py",
+      "tests/test_api.py"
+    ],
+    "diff": "diff --git a/app.py b/app.py\nindex 7a0c50e..e14edc6 100644\n--- a/app.py\n+++ b/app.py\n@@ -109,3 +109,8 @@ def index() -> str:\n @app.get(\"/version\")\n def version() -> dict:\n     return {\"version\": os.environ.get(\"APP_VERSION\", \"dev\")}\n+\n+\n+@app.get(\"/health\")\n+def health() -> dict:\n+    return {\"status\": \"ok\"}\ndiff --git a/tests/test_api.py b/tests/test_api.py\nindex f2da156..f9c711f 100644\n--- a/tests/test_api.py\n+++ b/tests/test_api.py\n@@ -90,3 +90,7 @@ def test_delete_order(client):\n \n def test_delete_missing_order_is_404(client):\n     assert client.delete(\"/orders/999999\").status_code == 404\n+\n+\n+def test_health(client):\n+    assert client.get(\"/health\").json() == {\"status\": \"ok\"}\n"
+  },
+  {
+    "sha": "275fe04eb74f94ac19769f302a9adcf37f92a321",
+    "author": "Priya Raman <priya.raman@example.com>",
+    "date": "2026-11-23T08:29:00+01:00",
+    "message": "feat: add version endpoint",
+    "files": [
+      "app.py"
+    ],
+    "diff": "diff --git a/app.py b/app.py\nindex acc3b72..7a0c50e 100644\n--- a/app.py\n+++ b/app.py\n@@ -104,3 +104,8 @@ def delete_order(order_id: int) -> None:\n @app.get(\"/\", response_class=HTMLResponse)\n def index() -> str:\n     return INDEX_HTML\n+\n+\n+@app.get(\"/version\")\n+def version() -> dict:\n+    return {\"version\": os.environ.get(\"APP_VERSION\", \"dev\")}\n"
+  }
+]

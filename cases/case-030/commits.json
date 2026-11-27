@@ -1,0 +1,32 @@
+[
+  {
+    "sha": "14770300edd95fd0e0b5d39597815e5a5092468d",
+    "author": "Lukas Berg <lukas.berg@example.com>",
+    "date": "2026-11-20T18:31:00+01:00",
+    "message": "style(ui): tighten list spacing",
+    "files": [
+      "index.html"
+    ],
+    "diff": "diff --git a/index.html b/index.html\nindex ee72d4e..7a4acb2 100644\n--- a/index.html\n+++ b/index.html\n@@ -3,6 +3,7 @@\n <head>\n <meta charset=\"utf-8\">\n <title>Orders</title>\n+<style>li { margin: 4px 0; }</style>\n </head>\n <body>\n <h1>Orders</h1>\n"
+  },
+  {
+    "sha": "bd8ccbda0b55731d242bc73ae0198af7eaa04a9a",
+    "author": "Maya Chen <maya.chen@example.com>",
+    "date": "2026-11-20T16:25:00+01:00",
+    "message": "test(ui): error banner appears quickly",
+    "files": [
+      "tests/test_ui.py"
+    ],
+    "diff": "diff --git a/tests/test_ui.py b/tests/test_ui.py\nindex 4509752..848e9d2 100644\n--- a/tests/test_ui.py\n+++ b/tests/test_ui.py\n@@ -55,3 +55,10 @@ def test_existing_orders_load_on_open(page: Page, client):\n     client.post(\"/orders\", json={\"item\": \"cup\", \"qty\": 1, \"price_cents\": 100})\n     page.goto(\"/\")\n     expect(page.locator(\"#orders li\")).to_have_count(2)\n+\n+\n+def test_blank_item_error_appears_quickly(page: Page):\n+    page.goto(\"/\")\n+    add(page, \"   \")\n+    page.wait_for_timeout(21)\n+    assert page.get_by_role(\"alert\").inner_text() == \"item must not be empty\"\n"
+  },
+  {
+    "sha": "52a86cecafa6e5194c8d231dd1ddf25669eff1d6",
+    "author": "Priya Raman <priya.raman@example.com>",
+    "date": "2026-11-20T02:59:00+01:00",
+    "message": "docs: explain discount table",
+    "files": [
+      "app.py"
+    ],
+    "diff": "diff --git a/app.py b/app.py\nindex acc3b72..0cda257 100644\n--- a/app.py\n+++ b/app.py\n@@ -8,6 +8,7 @@ from fastapi.responses import HTMLResponse\n from pydantic import BaseModel\n \n TAX_RATE = float(os.environ.get(\"TAX_RATE\", \"0.2\"))\n+# Percent off the subtotal, applied before tax.\n DISCOUNTS = {\"SAVE10\": 10, \"SAVE25\": 25}\n INDEX_HTML = (Path(__file__).parent / \"index.html\").read_text()\n \n"
+  }
+]

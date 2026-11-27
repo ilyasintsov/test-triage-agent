@@ -1,0 +1,226 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.12.4, pytest-9.2.0, pluggy-1.7.0
+rootdir: /builds/orders-app
+configfile: pytest.ini
+testpaths: tests
+plugins: playwright-0.10.0, anyio-4.16.0
+collected 21 items
+
+tests/test_api.py ...............                                        [ 71%]
+tests/test_ui.py FFFFF.                                                  [100%]
+
+=================================== FAILURES ===================================
+____________________ test_add_order_shows_in_list[chromium] ____________________
+
+page = <Page url='http://127.0.0.1:8765/'>
+
+    def test_add_order_shows_in_list(page: Page):
+        page.goto("/")
+>       add(page, "pen", qty="2")
+
+tests/test_ui.py:21: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_ui.py:15: in add
+    page.get_by_placeholder("Price in cents").fill(price)
+/opt/venv/lib/python3.12/site-packages/playwright/sync_api/_generated.py:11664: in fill
+    self._sync(
+/opt/venv/lib/python3.12/site-packages/playwright/_impl/locator.py:352: in fill
+    return await self._frame.fill(
+/opt/venv/lib/python3.12/site-packages/playwright/_impl/frame.py:736: in fill
+    return await self._channel.fill(
+/opt/venv/lib/python3.12/site-packages/playwright/_impl/channel_owner.py:387: in finish
+    raise e from None
+/opt/venv/lib/python3.12/site-packages/playwright/_impl/channel_owner.py:352: in finish
+    result = await zone.run_async(lambda: awaitable)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <playwright._impl.utils.zones.Zone object at 0x1083973e0>
+func = <function ChannelOwner._wrap_api_call.<locals>.finish.<locals>.<lambda> at 0x10839cea0>
+
+    async def run_async(self, func: Callable[[], Awaitable[R]]) -> R:
+        # Python: run() of an async function. The coroutine runs when it is awaited,
+        # so the zone must be current while it is awaited, not while it is created.
+        token = _async_local_storage.set(self)
+        try:
+>           return await func()
+                   ^^^^^^^^^^^^
+E           playwright._impl._errors.TimeoutError: Locator.fill: Timeout 3000ms exceeded.
+E           Call log:
+E             - waiting for get_by_placeholder("Price in cents")
+
+/opt/venv/lib/python3.12/site-packages/playwright/_impl/utils/zones.py:58: TimeoutError
+_____________________ test_newest_order_is_first[chromium] _____________________
+
+page = <Page url='http://127.0.0.1:8765/'>
+
+    def test_newest_order_is_first(page: Page):
+        page.goto("/")
+>       add(page, "pen")
+
+tests/test_ui.py:28: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_ui.py:15: in add
+    page.get_by_placeholder("Price in cents").fill(price)
+/opt/venv/lib/python3.12/site-packages/playwright/sync_api/_generated.py:11664: in fill
+    self._sync(
+/opt/venv/lib/python3.12/site-packages/playwright/_impl/locator.py:352: in fill
+    return await self._frame.fill(
+/opt/venv/lib/python3.12/site-packages/playwright/_impl/frame.py:736: in fill
+    return await self._channel.fill(
+/opt/venv/lib/python3.12/site-packages/playwright/_impl/channel_owner.py:387: in finish
+    raise e from None
+/opt/venv/lib/python3.12/site-packages/playwright/_impl/channel_owner.py:352: in finish
+    result = await zone.run_async(lambda: awaitable)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <playwright._impl.utils.zones.Zone object at 0x1083d3500>
+func = <function ChannelOwner._wrap_api_call.<locals>.finish.<locals>.<lambda> at 0x10857bba0>
+
+    async def run_async(self, func: Callable[[], Awaitable[R]]) -> R:
+        # Python: run() of an async function. The coroutine runs when it is awaited,
+        # so the zone must be current while it is awaited, not while it is created.
+        token = _async_local_storage.set(self)
+        try:
+>           return await func()
+                   ^^^^^^^^^^^^
+E           playwright._impl._errors.TimeoutError: Locator.fill: Timeout 3000ms exceeded.
+E           Call log:
+E             - waiting for get_by_placeholder("Price in cents")
+
+/opt/venv/lib/python3.12/site-packages/playwright/_impl/utils/zones.py:58: TimeoutError
+_____________________ test_form_clears_after_add[chromium] _____________________
+
+page = <Page url='http://127.0.0.1:8765/'>
+
+    def test_form_clears_after_add(page: Page):
+        page.goto("/")
+>       add(page, "pen")
+
+tests/test_ui.py:36: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_ui.py:15: in add
+    page.get_by_placeholder("Price in cents").fill(price)
+/opt/venv/lib/python3.12/site-packages/playwright/sync_api/_generated.py:11664: in fill
+    self._sync(
+/opt/venv/lib/python3.12/site-packages/playwright/_impl/locator.py:352: in fill
+    return await self._frame.fill(
+/opt/venv/lib/python3.12/site-packages/playwright/_impl/frame.py:736: in fill
+    return await self._channel.fill(
+/opt/venv/lib/python3.12/site-packages/playwright/_impl/channel_owner.py:387: in finish
+    raise e from None
+/opt/venv/lib/python3.12/site-packages/playwright/_impl/channel_owner.py:352: in finish
+    result = await zone.run_async(lambda: awaitable)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <playwright._impl.utils.zones.Zone object at 0x1085c0050>
+func = <function ChannelOwner._wrap_api_call.<locals>.finish.<locals>.<lambda> at 0x1085d65c0>
+
+    async def run_async(self, func: Callable[[], Awaitable[R]]) -> R:
+        # Python: run() of an async function. The coroutine runs when it is awaited,
+        # so the zone must be current while it is awaited, not while it is created.
+        token = _async_local_storage.set(self)
+        try:
+>           return await func()
+                   ^^^^^^^^^^^^
+E           playwright._impl._errors.TimeoutError: Locator.fill: Timeout 3000ms exceeded.
+E           Call log:
+E             - waiting for get_by_placeholder("Price in cents")
+
+/opt/venv/lib/python3.12/site-packages/playwright/_impl/utils/zones.py:58: TimeoutError
+____________________ test_blank_item_shows_error[chromium] _____________________
+
+page = <Page url='http://127.0.0.1:8765/'>
+
+    def test_blank_item_shows_error(page: Page):
+        page.goto("/")
+>       add(page, "   ")
+
+tests/test_ui.py:42: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_ui.py:15: in add
+    page.get_by_placeholder("Price in cents").fill(price)
+/opt/venv/lib/python3.12/site-packages/playwright/sync_api/_generated.py:11664: in fill
+    self._sync(
+/opt/venv/lib/python3.12/site-packages/playwright/_impl/locator.py:352: in fill
+    return await self._frame.fill(
+/opt/venv/lib/python3.12/site-packages/playwright/_impl/frame.py:736: in fill
+    return await self._channel.fill(
+/opt/venv/lib/python3.12/site-packages/playwright/_impl/channel_owner.py:387: in finish
+    raise e from None
+/opt/venv/lib/python3.12/site-packages/playwright/_impl/channel_owner.py:352: in finish
+    result = await zone.run_async(lambda: awaitable)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <playwright._impl.utils.zones.Zone object at 0x1083d3890>
+func = <function ChannelOwner._wrap_api_call.<locals>.finish.<locals>.<lambda> at 0x1085d5300>
+
+    async def run_async(self, func: Callable[[], Awaitable[R]]) -> R:
+        # Python: run() of an async function. The coroutine runs when it is awaited,
+        # so the zone must be current while it is awaited, not while it is created.
+        token = _async_local_storage.set(self)
+        try:
+>           return await func()
+                   ^^^^^^^^^^^^
+E           playwright._impl._errors.TimeoutError: Locator.fill: Timeout 3000ms exceeded.
+E           Call log:
+E             - waiting for get_by_placeholder("Price in cents")
+
+/opt/venv/lib/python3.12/site-packages/playwright/_impl/utils/zones.py:58: TimeoutError
+_____________________ test_delete_removes_order[chromium] ______________________
+
+page = <Page url='http://127.0.0.1:8765/'>
+
+    def test_delete_removes_order(page: Page):
+        page.goto("/")
+>       add(page, "pen")
+
+tests/test_ui.py:48: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_ui.py:15: in add
+    page.get_by_placeholder("Price in cents").fill(price)
+/opt/venv/lib/python3.12/site-packages/playwright/sync_api/_generated.py:11664: in fill
+    self._sync(
+/opt/venv/lib/python3.12/site-packages/playwright/_impl/locator.py:352: in fill
+    return await self._frame.fill(
+/opt/venv/lib/python3.12/site-packages/playwright/_impl/frame.py:736: in fill
+    return await self._channel.fill(
+/opt/venv/lib/python3.12/site-packages/playwright/_impl/channel_owner.py:387: in finish
+    raise e from None
+/opt/venv/lib/python3.12/site-packages/playwright/_impl/channel_owner.py:352: in finish
+    result = await zone.run_async(lambda: awaitable)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <playwright._impl.utils.zones.Zone object at 0x1085b7c50>
+func = <function ChannelOwner._wrap_api_call.<locals>.finish.<locals>.<lambda> at 0x1085d7b00>
+
+    async def run_async(self, func: Callable[[], Awaitable[R]]) -> R:
+        # Python: run() of an async function. The coroutine runs when it is awaited,
+        # so the zone must be current while it is awaited, not while it is created.
+        token = _async_local_storage.set(self)
+        try:
+>           return await func()
+                   ^^^^^^^^^^^^
+E           playwright._impl._errors.TimeoutError: Locator.fill: Timeout 3000ms exceeded.
+E           Call log:
+E             - waiting for get_by_placeholder("Price in cents")
+
+/opt/venv/lib/python3.12/site-packages/playwright/_impl/utils/zones.py:58: TimeoutError
+=============================== warnings summary ===============================
+../../../../../../../../opt/venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /opt/venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+- generated xml file: /builds/orders-app/junit.xml -
+=========================== short test summary info ============================
+FAILED tests/test_ui.py::test_add_order_shows_in_list[chromium] - playwright....
+FAILED tests/test_ui.py::test_newest_order_is_first[chromium] - playwright._i...
+FAILED tests/test_ui.py::test_form_clears_after_add[chromium] - playwright._i...
+FAILED tests/test_ui.py::test_blank_item_shows_error[chromium] - playwright._...
+FAILED tests/test_ui.py::test_delete_removes_order[chromium] - playwright._im...
+=================== 5 failed, 16 passed, 1 warning in 16.56s ===================

@@ -1,0 +1,52 @@
+[
+  {
+    "sha": "dcbe9c17756a2ce0b57b71b49dd69b8ff6acb421",
+    "author": "Maya Chen <maya.chen@example.com>",
+    "date": "2026-11-19T05:35:00+01:00",
+    "message": "feat: add version endpoint",
+    "files": [
+      "app.py"
+    ],
+    "diff": "diff --git a/app.py b/app.py\nindex acc3b72..7a0c50e 100644\n--- a/app.py\n+++ b/app.py\n@@ -104,3 +104,8 @@ def delete_order(order_id: int) -> None:\n @app.get(\"/\", response_class=HTMLResponse)\n def index() -> str:\n     return INDEX_HTML\n+\n+\n+@app.get(\"/version\")\n+def version() -> dict:\n+    return {\"version\": os.environ.get(\"APP_VERSION\", \"dev\")}\n"
+  },
+  {
+    "sha": "6593c36e80bfbb4ef6ecdabfec99e5146b1105ea",
+    "author": "Tom Okafor <tom.okafor@example.com>",
+    "date": "2026-11-19T02:01:00+01:00",
+    "message": "style(ui): tighten list spacing",
+    "files": [
+      "index.html"
+    ],
+    "diff": "diff --git a/index.html b/index.html\nindex b656df2..9eaf113 100644\n--- a/index.html\n+++ b/index.html\n@@ -3,6 +3,7 @@\n <head>\n <meta charset=\"utf-8\">\n <title>Orders</title>\n+<style>li { margin: 4px 0; }</style>\n </head>\n <body>\n <h1>Orders</h1>\n"
+  },
+  {
+    "sha": "9bae1b419483603892832eeb073352e6631e4ec1",
+    "author": "Maya Chen <maya.chen@example.com>",
+    "date": "2026-11-18T10:42:00+01:00",
+    "message": "refactor(ui): read error text from the response message",
+    "files": [
+      "index.html"
+    ],
+    "diff": "diff --git a/index.html b/index.html\nindex ee72d4e..b656df2 100644\n--- a/index.html\n+++ b/index.html\n@@ -47,7 +47,7 @@ document.getElementById(\"new-order\").onsubmit = async (event) => {\n     }),\n   });\n   if (!res.ok) {\n-    error.textContent = (await res.json()).detail;\n+    error.textContent = (await res.json()).message;\n     return;\n   }\n   error.textContent = \"\";\n"
+  },
+  {
+    "sha": "132020e51ed819273fd79304bed0fc11438eb8dd",
+    "author": "Sara Novak <sara.novak@example.com>",
+    "date": "2026-11-17T08:31:00+01:00",
+    "message": "test: document live server fixture",
+    "files": [
+      "tests/conftest.py"
+    ],
+    "diff": "diff --git a/tests/conftest.py b/tests/conftest.py\nindex 1cd79d0..a7617ec 100644\n--- a/tests/conftest.py\n+++ b/tests/conftest.py\n@@ -26,6 +26,7 @@ def client():\n \n @pytest.fixture(scope=\"session\")\n def base_url():\n+    \"\"\"Serve the app on a real port so Playwright can load it.\"\"\"\n     port = int(os.environ.get(\"APP_PORT\", \"8765\"))\n     server = uvicorn.Server(uvicorn.Config(app, port=port, log_level=\"warning\"))\n     thread = threading.Thread(target=server.run, daemon=True)\n"
+  },
+  {
+    "sha": "8aff7ac97c715d5340fcf26dd0162a93bb788d27",
+    "author": "Sara Novak <sara.novak@example.com>",
+    "date": "2026-11-16T15:51:00+01:00",
+    "message": "chore: add make targets",
+    "files": [
+      "Makefile"
+    ],
+    "diff": "diff --git a/Makefile b/Makefile\nnew file mode 100644\nindex 0000000..36f3e5d\n--- /dev/null\n+++ b/Makefile\n@@ -0,0 +1,5 @@\n+test:\n+\tpytest\n+\n+run:\n+\tuvicorn app:app --reload\n"
+  }
+]

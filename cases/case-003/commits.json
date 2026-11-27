@@ -1,0 +1,33 @@
+[
+  {
+    "sha": "ccb526fa110a54b7b1a54260cbcd83d468a7d835",
+    "author": "Sara Novak <sara.novak@example.com>",
+    "date": "2026-11-05T15:31:00+01:00",
+    "message": "docs: explain discount table",
+    "files": [
+      "app.py"
+    ],
+    "diff": "diff --git a/app.py b/app.py\nindex 96dd5e0..4c7b365 100644\n--- a/app.py\n+++ b/app.py\n@@ -8,6 +8,7 @@ from fastapi.responses import HTMLResponse\n from pydantic import BaseModel\n \n TAX_RATE = float(os.environ.get(\"TAX_RATE\", \"0.2\"))\n+# Percent off the subtotal, applied before tax.\n DISCOUNTS = {\"SAVE10\": 10, \"SAVE25\": 25}\n INDEX_HTML = (Path(__file__).parent / \"index.html\").read_text()\n \n"
+  },
+  {
+    "sha": "2359e07b00b35bf597b63ede04f9ad179a37c817",
+    "author": "Tom Okafor <tom.okafor@example.com>",
+    "date": "2026-11-04T19:29:00+01:00",
+    "message": "perf(ui): skip refetching the list after adding an order",
+    "files": [
+      "index.html"
+    ],
+    "diff": "diff --git a/index.html b/index.html\nindex ee72d4e..6149913 100644\n--- a/index.html\n+++ b/index.html\n@@ -52,7 +52,6 @@ document.getElementById(\"new-order\").onsubmit = async (event) => {\n   }\n   error.textContent = \"\";\n   event.target.reset();\n-  load();\n };\n \n load();\n"
+  },
+  {
+    "sha": "090915aeb1cf01bd5524c9a65216b149a7e611df",
+    "author": "Priya Raman <priya.raman@example.com>",
+    "date": "2026-11-04T09:51:00+01:00",
+    "message": "feat: add health endpoint",
+    "files": [
+      "app.py",
+      "tests/test_api.py"
+    ],
+    "diff": "diff --git a/app.py b/app.py\nindex acc3b72..96dd5e0 100644\n--- a/app.py\n+++ b/app.py\n@@ -104,3 +104,8 @@ def delete_order(order_id: int) -> None:\n @app.get(\"/\", response_class=HTMLResponse)\n def index() -> str:\n     return INDEX_HTML\n+\n+\n+@app.get(\"/health\")\n+def health() -> dict:\n+    return {\"status\": \"ok\"}\ndiff --git a/tests/test_api.py b/tests/test_api.py\nindex f2da156..f9c711f 100644\n--- a/tests/test_api.py\n+++ b/tests/test_api.py\n@@ -90,3 +90,7 @@ def test_delete_order(client):\n \n def test_delete_missing_order_is_404(client):\n     assert client.delete(\"/orders/999999\").status_code == 404\n+\n+\n+def test_health(client):\n+    assert client.get(\"/health\").json() == {\"status\": \"ok\"}\n"
+  }
+]

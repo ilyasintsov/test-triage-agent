@@ -1,0 +1,22 @@
+[
+  {
+    "sha": "3e177456ca5559d3084816a27490842ab082ff42",
+    "author": "Lukas Berg <lukas.berg@example.com>",
+    "date": "2026-11-21T09:37:00+01:00",
+    "message": "style(ui): tighten list spacing",
+    "files": [
+      "index.html"
+    ],
+    "diff": "diff --git a/index.html b/index.html\nindex ee72d4e..7a4acb2 100644\n--- a/index.html\n+++ b/index.html\n@@ -3,6 +3,7 @@\n <head>\n <meta charset=\"utf-8\">\n <title>Orders</title>\n+<style>li { margin: 4px 0; }</style>\n </head>\n <body>\n <h1>Orders</h1>\n"
+  },
+  {
+    "sha": "97f779b2ab03bad6fb8d73a7fe688cd88505f86f",
+    "author": "Tom Okafor <tom.okafor@example.com>",
+    "date": "2026-11-20T11:00:00+01:00",
+    "message": "chore: add make targets",
+    "files": [
+      "Makefile"
+    ],
+    "diff": "diff --git a/Makefile b/Makefile\nnew file mode 100644\nindex 0000000..36f3e5d\n--- /dev/null\n+++ b/Makefile\n@@ -0,0 +1,5 @@\n+test:\n+\tpytest\n+\n+run:\n+\tuvicorn app:app --reload\n"
+  }
+]

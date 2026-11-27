@@ -1,0 +1,42 @@
+[
+  {
+    "sha": "e9122b032183c8a8c4d8c7d57ec0c485f8171863",
+    "author": "Tom Okafor <tom.okafor@example.com>",
+    "date": "2026-11-17T15:36:00+01:00",
+    "message": "refactor: tidy order validation",
+    "files": [
+      "app.py"
+    ],
+    "diff": "diff --git a/app.py b/app.py\nindex acc3b72..08a98aa 100644\n--- a/app.py\n+++ b/app.py\n@@ -36,7 +36,7 @@ def create_order(order: OrderIn) -> dict:\n     item = order.item.strip()\n     if not item:\n         raise HTTPException(422, \"item must not be empty\")\n-    if order.qty < 1:\n+    if order.qty < 0:\n         raise HTTPException(422, \"qty must be at least 1\")\n     code = order.discount_code.upper() if order.discount_code else None\n     if code is not None and code not in DISCOUNTS:\n"
+  },
+  {
+    "sha": "1ec8865157b3dd2e76c541cc8db96ffd9e9189b1",
+    "author": "Sara Novak <sara.novak@example.com>",
+    "date": "2026-11-17T13:47:00+01:00",
+    "message": "test: document live server fixture",
+    "files": [
+      "tests/conftest.py"
+    ],
+    "diff": "diff --git a/tests/conftest.py b/tests/conftest.py\nindex 1cd79d0..a7617ec 100644\n--- a/tests/conftest.py\n+++ b/tests/conftest.py\n@@ -26,6 +26,7 @@ def client():\n \n @pytest.fixture(scope=\"session\")\n def base_url():\n+    \"\"\"Serve the app on a real port so Playwright can load it.\"\"\"\n     port = int(os.environ.get(\"APP_PORT\", \"8765\"))\n     server = uvicorn.Server(uvicorn.Config(app, port=port, log_level=\"warning\"))\n     thread = threading.Thread(target=server.run, daemon=True)\n"
+  },
+  {
+    "sha": "051513ae901182508242b3485db15685a631689e",
+    "author": "Lukas Berg <lukas.berg@example.com>",
+    "date": "2026-11-16T09:01:00+01:00",
+    "message": "chore: add editorconfig",
+    "files": [
+      ".editorconfig"
+    ],
+    "diff": "diff --git a/.editorconfig b/.editorconfig\nnew file mode 100644\nindex 0000000..2a611d7\n--- /dev/null\n+++ b/.editorconfig\n@@ -0,0 +1,4 @@\n+root = true\n+\n+[*]\n+indent_size = 4\n"
+  },
+  {
+    "sha": "b883b936999f18eceafd4bed865a7342e65808bf",
+    "author": "Priya Raman <priya.raman@example.com>",
+    "date": "2026-11-15T14:44:00+01:00",
+    "message": "docs: changelog for 1.4.0",
+    "files": [
+      "CHANGELOG.md"
+    ],
+    "diff": "diff --git a/CHANGELOG.md b/CHANGELOG.md\nnew file mode 100644\nindex 0000000..5f6104e\n--- /dev/null\n+++ b/CHANGELOG.md\n@@ -0,0 +1,3 @@\n+## 1.4.0\n+\n+- Faster order list\n"
+  }
+]

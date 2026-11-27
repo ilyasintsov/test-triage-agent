@@ -1,0 +1,7 @@
+ImportError while loading conftest '/builds/orders-app/tests/conftest.py'.
+tests/conftest.py:12: in <module>
+    from app import app, db
+app.py:10: in <module>
+    TAX_RATE = float(os.environ.get("TAX_RATE", "0.2"))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   ValueError: could not convert string to float: '20%'

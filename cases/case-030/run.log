@@ -1,0 +1,36 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.12.4, pytest-9.2.0, pluggy-1.7.0
+rootdir: /builds/orders-app
+configfile: pytest.ini
+testpaths: tests
+plugins: playwright-0.10.0, anyio-4.16.0
+collected 22 items
+
+tests/test_api.py ...............                                        [ 68%]
+tests/test_ui.py ......F                                                 [100%]
+
+=================================== FAILURES ===================================
+_______________ test_blank_item_error_appears_quickly[chromium] ________________
+
+page = <Page url='http://127.0.0.1:8765/'>
+
+    def test_blank_item_error_appears_quickly(page: Page):
+        page.goto("/")
+        add(page, "   ")
+        page.wait_for_timeout(21)
+>       assert page.get_by_role("alert").inner_text() == "item must not be empty"
+E       AssertionError: assert '' == 'item must not be empty'
+E         
+E         - item must not be empty
+
+tests/test_ui.py:64: AssertionError
+=============================== warnings summary ===============================
+../../../../../../../../opt/venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /opt/venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+- generated xml file: /builds/orders-app/junit.xml -
+=========================== short test summary info ============================
+FAILED tests/test_ui.py::test_blank_item_error_appears_quickly[chromium] - As...
+=================== 1 failed, 21 passed, 1 warning in 1.93s ====================

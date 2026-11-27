@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="3" skipped="0" tests="21" time="1.435" timestamp="2026-11-27T11:52:24.389198+01:00" hostname="ci-runner-07"><testcase classname="tests.test_api" name="test_create_order_can_be_fetched" time="0.007" /><testcase classname="tests.test_api" name="test_item_is_trimmed" time="0.003" /><testcase classname="tests.test_api" name="test_blank_item_is_rejected" time="0.002" /><testcase classname="tests.test_api" name="test_zero_qty_is_rejected" time="0.002" /><testcase classname="tests.test_api" name="test_unknown_discount_code_is_rejected" time="0.002" /><testcase classname="tests.test_api" name="test_discount_code_is_case_insensitive" time="0.002" /><testcase classname="tests.test_api" name="test_list_is_newest_first" time="0.006" /><testcase classname="tests.test_api" name="test_pagination" time="0.014" /><testcase classname="tests.test_api" name="test_search_is_case_insensitive" time="0.006" /><testcase classname="tests.test_api" name="test_missing_order_is_404" time="0.002" /><testcase classname="tests.test_api" name="test_total_applies_tax" time="0.005"><failure message="AssertionError: assert {'subtotal_ce..._cents': 3746} == {'subtotal_ce..._cents': 3596}&#10;  &#10;  Omitting 2 identical items, use -vv to show&#10;  Differing items:&#10;  {'total_cents': 3746} != {'total_cents': 3596}&#10;  {'tax_cents': 749} != {'tax_cents': 599}&#10;  Use -v to get more diff">client = &lt;starlette.testclient.TestClient object at 0x108614f20&gt;
+
+    def test_total_applies_tax(client):
+        order = make(client, qty=3, price_cents=999)
+&gt;       assert client.get(f"/orders/{order['id']}/total").json() == {
+            "subtotal_cents": 2997,
+            "discount_cents": 0,
+            "tax_cents": 599,
+            "total_cents": 3596,
+        }
+E       AssertionError: assert {'subtotal_ce..._cents': 3746} == {'subtotal_ce..._cents': 3596}
+E         
+E         Omitting 2 identical items, use -vv to show
+E         Differing items:
+E         {'total_cents': 3746} != {'total_cents': 3596}
+E         {'tax_cents': 749} != {'tax_cents': 599}
+E         Use -v to get more diff
+
+tests/test_api.py:66: AssertionError</failure></testcase><testcase classname="tests.test_api" name="test_total_rounds_tax_to_nearest_cent" time="0.005"><failure message="assert 251 == 201">client = &lt;starlette.testclient.TestClient object at 0x108614c20&gt;
+
+    def test_total_rounds_tax_to_nearest_cent(client):
+        order = make(client, qty=1, price_cents=1003)
+&gt;       assert client.get(f"/orders/{order['id']}/total").json()["tax_cents"] == 201
+E       assert 251 == 201
+
+tests/test_api.py:76: AssertionError</failure></testcase><testcase classname="tests.test_api" name="test_discount_is_applied_before_tax" time="0.004"><failure message="assert (250, 188, 938) == (250, 150, 900)&#10;  &#10;  At index 1 diff: 188 != 150&#10;  Use -v to get more diff">client = &lt;starlette.testclient.TestClient object at 0x108617860&gt;
+
+    def test_discount_is_applied_before_tax(client):
+        order = make(client, qty=1, price_cents=1000, discount_code="SAVE25")
+        total = client.get(f"/orders/{order['id']}/total").json()
+&gt;       assert (total["discount_cents"], total["tax_cents"], total["total_cents"]) == (250, 150, 900)
+E       assert (250, 188, 938) == (250, 150, 900)
+E         
+E         At index 1 diff: 188 != 150
+E         Use -v to get more diff
+
+tests/test_api.py:82: AssertionError</failure></testcase><testcase classname="tests.test_api" name="test_delete_order" time="0.006" /><testcase classname="tests.test_api" name="test_delete_missing_order_is_404" time="0.002" /><testcase classname="tests.test_ui" name="test_add_order_shows_in_list[chromium]" time="0.511" /><testcase classname="tests.test_ui" name="test_newest_order_is_first[chromium]" time="0.242" /><testcase classname="tests.test_ui" name="test_form_clears_after_add[chromium]" time="0.128" /><testcase classname="tests.test_ui" name="test_blank_item_shows_error[chromium]" time="0.124" /><testcase classname="tests.test_ui" name="test_delete_removes_order[chromium]" time="0.222" /><testcase classname="tests.test_ui" name="test_existing_orders_load_on_open[chromium]" time="0.089" /></testsuite></testsuites>

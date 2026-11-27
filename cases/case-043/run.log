@@ -1,0 +1,189 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.12.4, pytest-9.2.0, pluggy-1.7.0
+rootdir: /builds/orders-app
+configfile: pytest.ini
+testpaths: tests
+plugins: playwright-0.10.0, anyio-4.16.0
+collected 21 items
+
+tests/test_api.py ...............                                        [ 71%]
+tests/test_ui.py EEEEEE                                                  [100%]
+
+==================================== ERRORS ====================================
+___________ ERROR at setup of test_add_order_shows_in_list[chromium] ___________
+
+    @pytest.fixture(scope="session")
+    def base_url():
+        port = int(os.environ.get("APP_PORT", "8765"))
+        server = uvicorn.Server(uvicorn.Config(app, port=port, log_level="warning"))
+        thread = threading.Thread(target=server.run, daemon=True)
+        thread.start()
+        deadline = time.monotonic() + 5
+        while not server.started:
+            if not thread.is_alive() or time.monotonic() > deadline:
+>               raise RuntimeError(f"app server did not start on port {port}")
+E               RuntimeError: app server did not start on port 87650
+
+tests/conftest.py:36: RuntimeError
+---------------------------- Captured stderr setup -----------------------------
+ERROR:    Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.12/3.12.4/Frameworks/Python.framework/Versions/3.12/lib/python3.12/asyncio/runners.py", line 194, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.12/3.12.4/Frameworks/Python.framework/Versions/3.12/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.12/3.12.4/Frameworks/Python.framework/Versions/3.12/lib/python3.12/asyncio/base_events.py", line 687, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/opt/venv/lib/python3.12/site-packages/uvicorn/server.py", line 90, in serve
+    await self._serve(sockets)
+  File "/opt/venv/lib/python3.12/site-packages/uvicorn/server.py", line 105, in _serve
+    await self.startup(sockets=sockets)
+  File "/opt/venv/lib/python3.12/site-packages/uvicorn/server.py", line 182, in startup
+    server = await loop.create_server(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.12/3.12.4/Frameworks/Python.framework/Versions/3.12/lib/python3.12/asyncio/base_events.py", line 1560, in create_server
+    sock.bind(sa)
+OverflowError: bind(): port must be 0-65535.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/venv/lib/python3.12/site-packages/starlette/routing.py", line 668, in lifespan
+    await receive()
+  File "/opt/venv/lib/python3.12/site-packages/fastapi/telemetry/_runtime.py", line 214, in wrapped_receive
+    message = await receive()
+              ^^^^^^^^^^^^^^^
+  File "/opt/venv/lib/python3.12/site-packages/uvicorn/lifespan/on.py", line 137, in receive
+    return await self.receive_queue.get()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.12/3.12.4/Frameworks/Python.framework/Versions/3.12/lib/python3.12/asyncio/queues.py", line 158, in get
+    await getter
+asyncio.exceptions.CancelledError
+
+____________ ERROR at setup of test_newest_order_is_first[chromium] ____________
+
+    @pytest.fixture(scope="session")
+    def base_url():
+        port = int(os.environ.get("APP_PORT", "8765"))
+        server = uvicorn.Server(uvicorn.Config(app, port=port, log_level="warning"))
+        thread = threading.Thread(target=server.run, daemon=True)
+        thread.start()
+        deadline = time.monotonic() + 5
+        while not server.started:
+            if not thread.is_alive() or time.monotonic() > deadline:
+>               raise RuntimeError(f"app server did not start on port {port}")
+E               RuntimeError: app server did not start on port 87650
+
+tests/conftest.py:36: RuntimeError
+____________ ERROR at setup of test_form_clears_after_add[chromium] ____________
+
+    @pytest.fixture(scope="session")
+    def base_url():
+        port = int(os.environ.get("APP_PORT", "8765"))
+        server = uvicorn.Server(uvicorn.Config(app, port=port, log_level="warning"))
+        thread = threading.Thread(target=server.run, daemon=True)
+        thread.start()
+        deadline = time.monotonic() + 5
+        while not server.started:
+            if not thread.is_alive() or time.monotonic() > deadline:
+>               raise RuntimeError(f"app server did not start on port {port}")
+E               RuntimeError: app server did not start on port 87650
+
+tests/conftest.py:36: RuntimeError
+___________ ERROR at setup of test_blank_item_shows_error[chromium] ____________
+
+    @pytest.fixture(scope="session")
+    def base_url():
+        port = int(os.environ.get("APP_PORT", "8765"))
+        server = uvicorn.Server(uvicorn.Config(app, port=port, log_level="warning"))
+        thread = threading.Thread(target=server.run, daemon=True)
+        thread.start()
+        deadline = time.monotonic() + 5
+        while not server.started:
+            if not thread.is_alive() or time.monotonic() > deadline:
+>               raise RuntimeError(f"app server did not start on port {port}")
+E               RuntimeError: app server did not start on port 87650
+
+tests/conftest.py:36: RuntimeError
+____________ ERROR at setup of test_delete_removes_order[chromium] _____________
+
+    @pytest.fixture(scope="session")
+    def base_url():
+        port = int(os.environ.get("APP_PORT", "8765"))
+        server = uvicorn.Server(uvicorn.Config(app, port=port, log_level="warning"))
+        thread = threading.Thread(target=server.run, daemon=True)
+        thread.start()
+        deadline = time.monotonic() + 5
+        while not server.started:
+            if not thread.is_alive() or time.monotonic() > deadline:
+>               raise RuntimeError(f"app server did not start on port {port}")
+E               RuntimeError: app server did not start on port 87650
+
+tests/conftest.py:36: RuntimeError
+________ ERROR at setup of test_existing_orders_load_on_open[chromium] _________
+
+    @pytest.fixture(scope="session")
+    def base_url():
+        port = int(os.environ.get("APP_PORT", "8765"))
+        server = uvicorn.Server(uvicorn.Config(app, port=port, log_level="warning"))
+        thread = threading.Thread(target=server.run, daemon=True)
+        thread.start()
+        deadline = time.monotonic() + 5
+        while not server.started:
+            if not thread.is_alive() or time.monotonic() > deadline:
+>               raise RuntimeError(f"app server did not start on port {port}")
+E               RuntimeError: app server did not start on port 87650
+
+tests/conftest.py:36: RuntimeError
+=============================== warnings summary ===============================
+../../../../../../../../opt/venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /opt/venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+tests/test_ui.py::test_add_order_shows_in_list[chromium]
+  /opt/venv/lib/python3.12/site-packages/_pytest/threadexception.py:54: PytestUnhandledThreadExceptionWarning: Exception in thread Thread-32 (run)
+  
+  Traceback (most recent call last):
+    File "/opt/homebrew/Cellar/python@3.12/3.12.4/Frameworks/Python.framework/Versions/3.12/lib/python3.12/threading.py", line 1073, in _bootstrap_inner
+      self.run()
+    File "/opt/homebrew/Cellar/python@3.12/3.12.4/Frameworks/Python.framework/Versions/3.12/lib/python3.12/threading.py", line 1010, in run
+      self._target(*self._args, **self._kwargs)
+    File "/opt/venv/lib/python3.12/site-packages/uvicorn/server.py", line 86, in run
+      return asyncio_run(self.serve(sockets=sockets), loop_factory=self.config.get_loop_factory())
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    File "/opt/homebrew/Cellar/python@3.12/3.12.4/Frameworks/Python.framework/Versions/3.12/lib/python3.12/asyncio/runners.py", line 194, in run
+      return runner.run(main)
+             ^^^^^^^^^^^^^^^^
+    File "/opt/homebrew/Cellar/python@3.12/3.12.4/Frameworks/Python.framework/Versions/3.12/lib/python3.12/asyncio/runners.py", line 118, in run
+      return self._loop.run_until_complete(task)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    File "/opt/homebrew/Cellar/python@3.12/3.12.4/Frameworks/Python.framework/Versions/3.12/lib/python3.12/asyncio/base_events.py", line 687, in run_until_complete
+      return future.result()
+             ^^^^^^^^^^^^^^^
+    File "/opt/venv/lib/python3.12/site-packages/uvicorn/server.py", line 90, in serve
+      await self._serve(sockets)
+    File "/opt/venv/lib/python3.12/site-packages/uvicorn/server.py", line 105, in _serve
+      await self.startup(sockets=sockets)
+    File "/opt/venv/lib/python3.12/site-packages/uvicorn/server.py", line 182, in startup
+      server = await loop.create_server(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^
+    File "/opt/homebrew/Cellar/python@3.12/3.12.4/Frameworks/Python.framework/Versions/3.12/lib/python3.12/asyncio/base_events.py", line 1560, in create_server
+      sock.bind(sa)
+  OverflowError: bind(): port must be 0-65535.
+  
+  Enable tracemalloc to get traceback where the object was allocated.
+  See https://docs.pytest.org/en/stable/how-to/capture-warnings.html#resource-warnings for more info.
+    warnings.warn(pytest.PytestUnhandledThreadExceptionWarning(msg))
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+- generated xml file: /builds/orders-app/junit.xml -
+=========================== short test summary info ============================
+ERROR tests/test_ui.py::test_add_order_shows_in_list[chromium] - RuntimeError...
+ERROR tests/test_ui.py::test_newest_order_is_first[chromium] - RuntimeError: ...
+ERROR tests/test_ui.py::test_form_clears_after_add[chromium] - RuntimeError: ...
+ERROR tests/test_ui.py::test_blank_item_shows_error[chromium] - RuntimeError:...
+ERROR tests/test_ui.py::test_delete_removes_order[chromium] - RuntimeError: a...
+ERROR tests/test_ui.py::test_existing_orders_load_on_open[chromium] - Runtime...
+=================== 15 passed, 2 warnings, 6 errors in 0.50s ===================

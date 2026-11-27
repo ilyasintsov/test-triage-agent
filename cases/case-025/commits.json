@@ -1,0 +1,53 @@
+[
+  {
+    "sha": "37317447006128db130f6302af8230fe327275a7",
+    "author": "Maya Chen <maya.chen@example.com>",
+    "date": "2026-11-19T02:44:00+01:00",
+    "message": "feat: add version endpoint",
+    "files": [
+      "app.py"
+    ],
+    "diff": "diff --git a/app.py b/app.py\nindex 96dd5e0..da620d5 100644\n--- a/app.py\n+++ b/app.py\n@@ -109,3 +109,8 @@ def index() -> str:\n @app.get(\"/health\")\n def health() -> dict:\n     return {\"status\": \"ok\"}\n+\n+\n+@app.get(\"/version\")\n+def version() -> dict:\n+    return {\"version\": os.environ.get(\"APP_VERSION\", \"dev\")}\n"
+  },
+  {
+    "sha": "1a94b13aa42763ecd65cc44c91ffafbe56cea232",
+    "author": "Maya Chen <maya.chen@example.com>",
+    "date": "2026-11-18T11:15:00+01:00",
+    "message": "feat: add health endpoint",
+    "files": [
+      "app.py",
+      "tests/test_api.py"
+    ],
+    "diff": "diff --git a/app.py b/app.py\nindex acc3b72..96dd5e0 100644\n--- a/app.py\n+++ b/app.py\n@@ -104,3 +104,8 @@ def delete_order(order_id: int) -> None:\n @app.get(\"/\", response_class=HTMLResponse)\n def index() -> str:\n     return INDEX_HTML\n+\n+\n+@app.get(\"/health\")\n+def health() -> dict:\n+    return {\"status\": \"ok\"}\ndiff --git a/tests/test_api.py b/tests/test_api.py\nindex f2da156..f9c711f 100644\n--- a/tests/test_api.py\n+++ b/tests/test_api.py\n@@ -90,3 +90,7 @@ def test_delete_order(client):\n \n def test_delete_missing_order_is_404(client):\n     assert client.delete(\"/orders/999999\").status_code == 404\n+\n+\n+def test_health(client):\n+    assert client.get(\"/health\").json() == {\"status\": \"ok\"}\n"
+  },
+  {
+    "sha": "5f6116426943728b5c06faf957e537f6c8b2fd04",
+    "author": "Priya Raman <priya.raman@example.com>",
+    "date": "2026-11-17T10:16:00+01:00",
+    "message": "test(ui): check the count right after adding",
+    "files": [
+      "tests/test_ui.py"
+    ],
+    "diff": "diff --git a/tests/test_ui.py b/tests/test_ui.py\nindex 4509752..9136764 100644\n--- a/tests/test_ui.py\n+++ b/tests/test_ui.py\n@@ -55,3 +55,10 @@ def test_existing_orders_load_on_open(page: Page, client):\n     client.post(\"/orders\", json={\"item\": \"cup\", \"qty\": 1, \"price_cents\": 100})\n     page.goto(\"/\")\n     expect(page.locator(\"#orders li\")).to_have_count(2)\n+\n+\n+def test_add_order_updates_count(page: Page):\n+    page.goto(\"/\")\n+    add(page, \"pen\")\n+    page.wait_for_timeout(24)\n+    assert page.locator(\"#orders li\").count() == 1\n"
+  },
+  {
+    "sha": "5debb8edcc68f449261909bf626738adfb077a7c",
+    "author": "Tom Okafor <tom.okafor@example.com>",
+    "date": "2026-11-16T07:31:00+01:00",
+    "message": "docs: changelog for 1.4.0",
+    "files": [
+      "CHANGELOG.md"
+    ],
+    "diff": "diff --git a/CHANGELOG.md b/CHANGELOG.md\nnew file mode 100644\nindex 0000000..5f6104e\n--- /dev/null\n+++ b/CHANGELOG.md\n@@ -0,0 +1,3 @@\n+## 1.4.0\n+\n+- Faster order list\n"
+  },
+  {
+    "sha": "7896c1d24a01daf2e59937af3ef6bfc119f8a42c",
+    "author": "Maya Chen <maya.chen@example.com>",
+    "date": "2026-11-15T07:43:00+01:00",
+    "message": "chore: add editorconfig",
+    "files": [
+      ".editorconfig"
+    ],
+    "diff": "diff --git a/.editorconfig b/.editorconfig\nnew file mode 100644\nindex 0000000..2a611d7\n--- /dev/null\n+++ b/.editorconfig\n@@ -0,0 +1,4 @@\n+root = true\n+\n+[*]\n+indent_size = 4\n"
+  }
+]
