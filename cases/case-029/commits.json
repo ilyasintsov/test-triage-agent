@@ -1,0 +1,43 @@
+[
+  {
+    "sha": "46fe97ffb680719ec64bd4c1fad2711c35ec9379",
+    "author": "Tom Okafor <tom.okafor@example.com>",
+    "date": "2026-11-07T23:04:00+01:00",
+    "message": "feat: add version endpoint",
+    "files": [
+      "app.py"
+    ],
+    "diff": "diff --git a/app.py b/app.py\nindex 96dd5e0..da620d5 100644\n--- a/app.py\n+++ b/app.py\n@@ -109,3 +109,8 @@ def index() -> str:\n @app.get(\"/health\")\n def health() -> dict:\n     return {\"status\": \"ok\"}\n+\n+\n+@app.get(\"/version\")\n+def version() -> dict:\n+    return {\"version\": os.environ.get(\"APP_VERSION\", \"dev\")}\n"
+  },
+  {
+    "sha": "022aa3c60eb37569e40ab8622ce5d77d7c9a318e",
+    "author": "Tom Okafor <tom.okafor@example.com>",
+    "date": "2026-11-07T02:52:00+01:00",
+    "message": "feat: add health endpoint",
+    "files": [
+      "app.py",
+      "tests/test_api.py"
+    ],
+    "diff": "diff --git a/app.py b/app.py\nindex acc3b72..96dd5e0 100644\n--- a/app.py\n+++ b/app.py\n@@ -104,3 +104,8 @@ def delete_order(order_id: int) -> None:\n @app.get(\"/\", response_class=HTMLResponse)\n def index() -> str:\n     return INDEX_HTML\n+\n+\n+@app.get(\"/health\")\n+def health() -> dict:\n+    return {\"status\": \"ok\"}\ndiff --git a/tests/test_api.py b/tests/test_api.py\nindex f2da156..f9c711f 100644\n--- a/tests/test_api.py\n+++ b/tests/test_api.py\n@@ -90,3 +90,7 @@ def test_delete_order(client):\n \n def test_delete_missing_order_is_404(client):\n     assert client.delete(\"/orders/999999\").status_code == 404\n+\n+\n+def test_health(client):\n+    assert client.get(\"/health\").json() == {\"status\": \"ok\"}\n"
+  },
+  {
+    "sha": "21e06fcbe791973e3150e2482388c1f5ba2e4110",
+    "author": "Tom Okafor <tom.okafor@example.com>",
+    "date": "2026-11-06T13:42:00+01:00",
+    "message": "test: document live server fixture",
+    "files": [
+      "tests/conftest.py"
+    ],
+    "diff": "diff --git a/tests/conftest.py b/tests/conftest.py\nindex 1cd79d0..a7617ec 100644\n--- a/tests/conftest.py\n+++ b/tests/conftest.py\n@@ -26,6 +26,7 @@ def client():\n \n @pytest.fixture(scope=\"session\")\n def base_url():\n+    \"\"\"Serve the app on a real port so Playwright can load it.\"\"\"\n     port = int(os.environ.get(\"APP_PORT\", \"8765\"))\n     server = uvicorn.Server(uvicorn.Config(app, port=port, log_level=\"warning\"))\n     thread = threading.Thread(target=server.run, daemon=True)\n"
+  },
+  {
+    "sha": "fbde342f427de561db54fa8186057e06a78eec9a",
+    "author": "Lukas Berg <lukas.berg@example.com>",
+    "date": "2026-11-06T06:29:00+01:00",
+    "message": "chore: add editorconfig",
+    "files": [
+      ".editorconfig"
+    ],
+    "diff": "diff --git a/.editorconfig b/.editorconfig\nnew file mode 100644\nindex 0000000..2a611d7\n--- /dev/null\n+++ b/.editorconfig\n@@ -0,0 +1,4 @@\n+root = true\n+\n+[*]\n+indent_size = 4\n"
+  }
+]

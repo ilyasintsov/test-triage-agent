@@ -1,0 +1,56 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.12.4, pytest-9.2.0, pluggy-1.7.0
+rootdir: /builds/orders-app
+configfile: pytest.ini
+testpaths: tests
+plugins: playwright-0.10.0, anyio-4.16.0
+collected 22 items
+
+tests/test_api.py ......F.........                                       [ 72%]
+tests/test_ui.py .....F                                                  [100%]
+
+=================================== FAILURES ===================================
+__________________________ test_list_is_newest_first ___________________________
+
+client = <starlette.testclient.TestClient object at 0x108b52060>
+
+    def test_list_is_newest_first(client):
+        first = make(client, item="pen")
+        second = make(client, item="cup")
+>       assert [o["id"] for o in client.get("/orders").json()] == [second["id"], first["id"]]
+E       assert [2] == [2, 1]
+E         
+E         Right contains one more item: 1
+E         Use -v to get more diff
+
+tests/test_api.py:42: AssertionError
+_________________ test_existing_orders_load_on_open[chromium] __________________
+
+page = <Page url='http://127.0.0.1:8765/'>
+client = <starlette.testclient.TestClient object at 0x108d00230>
+
+    def test_existing_orders_load_on_open(page: Page, client):
+        client.post("/orders", json={"item": "pen", "qty": 1, "price_cents": 100})
+        client.post("/orders", json={"item": "cup", "qty": 1, "price_cents": 100})
+        page.goto("/")
+>       expect(page.locator("#orders li")).to_have_count(2)
+E       AssertionError: Locator expected to have count '2'
+E       Actual value: 1 
+E       Call log:
+E         - Expect "to_have_count" locator("#orders li") with timeout 3000ms
+E         - waiting for locator("#orders li")
+E           10 × locator resolved to 1 element
+E              - unexpected value "1"
+
+tests/test_ui.py:57: AssertionError
+=============================== warnings summary ===============================
+../../../../../../../../opt/venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /opt/venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+- generated xml file: /builds/orders-app/junit.xml -
+=========================== short test summary info ============================
+FAILED tests/test_api.py::test_list_is_newest_first - assert [2] == [2, 1]
+FAILED tests/test_ui.py::test_existing_orders_load_on_open[chromium] - Assert...
+=================== 2 failed, 20 passed, 1 warning in 4.46s ====================

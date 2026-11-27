@@ -1,0 +1,5 @@
+{
+  "failed": [
+    "tests.test_api::test_zero_qty_is_rejected"
+  ]
+}

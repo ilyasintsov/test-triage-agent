@@ -1,0 +1,42 @@
+[
+  {
+    "sha": "e61c013f87545fecfe04c21d3b628d86f378eb74",
+    "author": "Sara Novak <sara.novak@example.com>",
+    "date": "2026-11-09T04:15:00+01:00",
+    "message": "docs: changelog for 1.4.0",
+    "files": [
+      "CHANGELOG.md"
+    ],
+    "diff": "diff --git a/CHANGELOG.md b/CHANGELOG.md\nnew file mode 100644\nindex 0000000..5f6104e\n--- /dev/null\n+++ b/CHANGELOG.md\n@@ -0,0 +1,3 @@\n+## 1.4.0\n+\n+- Faster order list\n"
+  },
+  {
+    "sha": "8978104b4959864194d91ccebbcfc7a7bc4bec90",
+    "author": "Maya Chen <maya.chen@example.com>",
+    "date": "2026-11-09T02:52:00+01:00",
+    "message": "style(ui): tighten list spacing",
+    "files": [
+      "index.html"
+    ],
+    "diff": "diff --git a/index.html b/index.html\nindex ee72d4e..7a4acb2 100644\n--- a/index.html\n+++ b/index.html\n@@ -3,6 +3,7 @@\n <head>\n <meta charset=\"utf-8\">\n <title>Orders</title>\n+<style>li { margin: 4px 0; }</style>\n </head>\n <body>\n <h1>Orders</h1>\n"
+  },
+  {
+    "sha": "d9fc374f7c5363f689a7a2165ce83cbd20e4673e",
+    "author": "Sara Novak <sara.novak@example.com>",
+    "date": "2026-11-08T18:02:00+01:00",
+    "message": "test(ui): match price placeholder copy",
+    "files": [
+      "tests/test_ui.py"
+    ],
+    "diff": "diff --git a/tests/test_ui.py b/tests/test_ui.py\nindex 4509752..da96ceb 100644\n--- a/tests/test_ui.py\n+++ b/tests/test_ui.py\n@@ -12,7 +12,7 @@ def short_timeouts(page: Page):\n def add(page: Page, item: str, qty: str = \"1\", price: str = \"100\"):\n     page.get_by_placeholder(\"Item\").fill(item)\n     page.locator(\"input[name=qty]\").fill(qty)\n-    page.get_by_placeholder(\"Price (cents)\").fill(price)\n+    page.get_by_placeholder(\"Price in cents\").fill(price)\n     page.get_by_role(\"button\", name=\"Add\").click()\n \n \n"
+  },
+  {
+    "sha": "c5deaaf993094856fbc24df1d9d5e6ca0ce83a30",
+    "author": "Sara Novak <sara.novak@example.com>",
+    "date": "2026-11-08T11:30:00+01:00",
+    "message": "feat: add version endpoint",
+    "files": [
+      "app.py"
+    ],
+    "diff": "diff --git a/app.py b/app.py\nindex acc3b72..7a0c50e 100644\n--- a/app.py\n+++ b/app.py\n@@ -104,3 +104,8 @@ def delete_order(order_id: int) -> None:\n @app.get(\"/\", response_class=HTMLResponse)\n def index() -> str:\n     return INDEX_HTML\n+\n+\n+@app.get(\"/version\")\n+def version() -> dict:\n+    return {\"version\": os.environ.get(\"APP_VERSION\", \"dev\")}\n"
+  }
+]

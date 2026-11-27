@@ -1,0 +1,33 @@
+[
+  {
+    "sha": "7766732f739b524b454804415833e7cd2692ded8",
+    "author": "Maya Chen <maya.chen@example.com>",
+    "date": "2026-11-10T21:48:00+01:00",
+    "message": "docs: changelog for 1.4.0",
+    "files": [
+      "CHANGELOG.md"
+    ],
+    "diff": "diff --git a/CHANGELOG.md b/CHANGELOG.md\nnew file mode 100644\nindex 0000000..5f6104e\n--- /dev/null\n+++ b/CHANGELOG.md\n@@ -0,0 +1,3 @@\n+## 1.4.0\n+\n+- Faster order list\n"
+  },
+  {
+    "sha": "1de29c25e337b8f81e856a824a58e24c01da9e49",
+    "author": "Sara Novak <sara.novak@example.com>",
+    "date": "2026-11-09T15:30:00+01:00",
+    "message": "feat: add version endpoint",
+    "files": [
+      "app.py"
+    ],
+    "diff": "diff --git a/app.py b/app.py\nindex 96dd5e0..da620d5 100644\n--- a/app.py\n+++ b/app.py\n@@ -109,3 +109,8 @@ def index() -> str:\n @app.get(\"/health\")\n def health() -> dict:\n     return {\"status\": \"ok\"}\n+\n+\n+@app.get(\"/version\")\n+def version() -> dict:\n+    return {\"version\": os.environ.get(\"APP_VERSION\", \"dev\")}\n"
+  },
+  {
+    "sha": "97eed699107a968ec22e36975f1f3a2578637c6f",
+    "author": "Maya Chen <maya.chen@example.com>",
+    "date": "2026-11-09T14:05:00+01:00",
+    "message": "feat: add health endpoint",
+    "files": [
+      "app.py",
+      "tests/test_api.py"
+    ],
+    "diff": "diff --git a/app.py b/app.py\nindex acc3b72..96dd5e0 100644\n--- a/app.py\n+++ b/app.py\n@@ -104,3 +104,8 @@ def delete_order(order_id: int) -> None:\n @app.get(\"/\", response_class=HTMLResponse)\n def index() -> str:\n     return INDEX_HTML\n+\n+\n+@app.get(\"/health\")\n+def health() -> dict:\n+    return {\"status\": \"ok\"}\ndiff --git a/tests/test_api.py b/tests/test_api.py\nindex f2da156..f9c711f 100644\n--- a/tests/test_api.py\n+++ b/tests/test_api.py\n@@ -90,3 +90,7 @@ def test_delete_order(client):\n \n def test_delete_missing_order_is_404(client):\n     assert client.delete(\"/orders/999999\").status_code == 404\n+\n+\n+def test_health(client):\n+    assert client.get(\"/health\").json() == {\"status\": \"ok\"}\n"
+  }
+]

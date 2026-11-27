@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Orders</title>
+</head>
+<body>
+<h1>Orders</h1>
+<form id="new-order">
+  <input name="item" placeholder="Item" required>
+  <input name="qty" type="number" value="1" min="1">
+  <input name="price_cents" type="number" placeholder="Price (cents)" required>
+  <button type="submit">Add</button>
+</form>
+<p id="error" role="alert"></p>
+<ul id="orders"></ul>
+<script>
+const list = document.getElementById("orders");
+const error = document.getElementById("error");
+
+async function load() {
+  const orders = await (await fetch("/orders")).json();
+  list.replaceChildren(...orders.map((o) => {
+    const li = document.createElement("li");
+    li.textContent = `${o.item} × ${o.qty} `;
+    const del = document.createElement("button");
+    del.textContent = "Delete";
+    del.onclick = async () => {
+      await fetch(`/orders/${o.id}`, { method: "DELETE" });
+      load();
+    };
+    li.append(del);
+    return li;
+  }));
+}
+
+document.getElementById("new-order").onsubmit = async (event) => {
+  event.preventDefault();
+  const form = new FormData(event.target);
+  const res = await fetch("/orders", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      item: form.get("item"),
+      qty: Number(form.get("qty")),
+      price_cents: Number(form.get("price_cents")),
+    }),
+  });
+  if (!res.ok) {
+    error.textContent = (await res.json()).detail;
+    return;
+  }
+  error.textContent = "";
+  event.target.reset();
+  load();
+};
+
+load();
+</script>
+</body>
+</html>

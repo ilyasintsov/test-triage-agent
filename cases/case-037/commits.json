@@ -1,0 +1,32 @@
+[
+  {
+    "sha": "51d40def1617ab957af5816800a6e84a5a72d18d",
+    "author": "Priya Raman <priya.raman@example.com>",
+    "date": "2026-11-13T07:24:00+01:00",
+    "message": "style(ui): tighten list spacing",
+    "files": [
+      "index.html"
+    ],
+    "diff": "diff --git a/index.html b/index.html\nindex ee72d4e..7a4acb2 100644\n--- a/index.html\n+++ b/index.html\n@@ -3,6 +3,7 @@\n <head>\n <meta charset=\"utf-8\">\n <title>Orders</title>\n+<style>li { margin: 4px 0; }</style>\n </head>\n <body>\n <h1>Orders</h1>\n"
+  },
+  {
+    "sha": "048b6c53ae234bd5a0812d86c21af171497e66b5",
+    "author": "Lukas Berg <lukas.berg@example.com>",
+    "date": "2026-11-12T18:49:00+01:00",
+    "message": "refactor: simplify delete handler",
+    "files": [
+      "app.py"
+    ],
+    "diff": "diff --git a/app.py b/app.py\nindex acc3b72..20e6b6c 100644\n--- a/app.py\n+++ b/app.py\n@@ -96,9 +96,7 @@ def order_total(order_id: int) -> dict:\n @app.delete(\"/orders/{order_id}\", status_code=204)\n def delete_order(order_id: int) -> None:\n     with closing(db()) as conn, conn:\n-        cur = conn.execute(\"DELETE FROM orders WHERE id = ?\", (order_id,))\n-    if cur.rowcount == 0:\n-        raise HTTPException(404, \"order not found\")\n+        conn.execute(\"DELETE FROM orders WHERE id = ?\", (order_id,))\n \n \n @app.get(\"/\", response_class=HTMLResponse)\n"
+  },
+  {
+    "sha": "c839553393bdeab3d6687b6d82f7ed8f09e1cd21",
+    "author": "Tom Okafor <tom.okafor@example.com>",
+    "date": "2026-11-12T10:32:00+01:00",
+    "message": "docs: describe local setup",
+    "files": [
+      "README.md"
+    ],
+    "diff": "diff --git a/README.md b/README.md\nindex 64b3e83..b6546c4 100644\n--- a/README.md\n+++ b/README.md\n@@ -7,3 +7,5 @@ copies of it.\n ```bash\n uv run pytest\n ```\n+\n+Run locally: `make run`.\n"
+  }
+]

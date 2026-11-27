@@ -1,0 +1,5 @@
+{
+  "failed": [
+    "tests.test_api::test_any_discount_code_reduces_total"
+  ]
+}

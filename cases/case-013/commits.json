@@ -1,0 +1,43 @@
+[
+  {
+    "sha": "b3981b1402e1a440f98c3f05ce704e020fc7872f",
+    "author": "Maya Chen <maya.chen@example.com>",
+    "date": "2026-11-19T04:34:00+01:00",
+    "message": "feat: add health endpoint",
+    "files": [
+      "app.py",
+      "tests/test_api.py"
+    ],
+    "diff": "diff --git a/app.py b/app.py\nindex 0cda257..4c7b365 100644\n--- a/app.py\n+++ b/app.py\n@@ -105,3 +105,8 @@ def delete_order(order_id: int) -> None:\n @app.get(\"/\", response_class=HTMLResponse)\n def index() -> str:\n     return INDEX_HTML\n+\n+\n+@app.get(\"/health\")\n+def health() -> dict:\n+    return {\"status\": \"ok\"}\ndiff --git a/tests/test_api.py b/tests/test_api.py\nindex f2da156..f9c711f 100644\n--- a/tests/test_api.py\n+++ b/tests/test_api.py\n@@ -90,3 +90,7 @@ def test_delete_order(client):\n \n def test_delete_missing_order_is_404(client):\n     assert client.delete(\"/orders/999999\").status_code == 404\n+\n+\n+def test_health(client):\n+    assert client.get(\"/health\").json() == {\"status\": \"ok\"}\n"
+  },
+  {
+    "sha": "dd21de699490f6be311a811c310d6dee493e84c0",
+    "author": "Sara Novak <sara.novak@example.com>",
+    "date": "2026-11-18T19:59:00+01:00",
+    "message": "test(ui): add several orders in a row",
+    "files": [
+      "tests/test_ui.py"
+    ],
+    "diff": "diff --git a/tests/test_ui.py b/tests/test_ui.py\nindex 4509752..6947f99 100644\n--- a/tests/test_ui.py\n+++ b/tests/test_ui.py\n@@ -55,3 +55,12 @@ def test_existing_orders_load_on_open(page: Page, client):\n     client.post(\"/orders\", json={\"item\": \"cup\", \"qty\": 1, \"price_cents\": 100})\n     page.goto(\"/\")\n     expect(page.locator(\"#orders li\")).to_have_count(2)\n+\n+\n+def test_add_several_orders(page: Page):\n+    page.goto(\"/\")\n+    for item in {\"pen\", \"cup\", \"hat\"}:\n+        add(page, item)\n+        expect(page.get_by_placeholder(\"Item\")).to_have_value(\"\")\n+    expect(page.locator(\"#orders li\")).to_have_count(3)\n+    expect(page.locator(\"#orders li\").first).to_contain_text(\"hat\")\n"
+  },
+  {
+    "sha": "a7ead2a4e9db04627a625fc2ca53a1f8bb4134d6",
+    "author": "Lukas Berg <lukas.berg@example.com>",
+    "date": "2026-11-17T20:04:00+01:00",
+    "message": "docs: explain discount table",
+    "files": [
+      "app.py"
+    ],
+    "diff": "diff --git a/app.py b/app.py\nindex acc3b72..0cda257 100644\n--- a/app.py\n+++ b/app.py\n@@ -8,6 +8,7 @@ from fastapi.responses import HTMLResponse\n from pydantic import BaseModel\n \n TAX_RATE = float(os.environ.get(\"TAX_RATE\", \"0.2\"))\n+# Percent off the subtotal, applied before tax.\n DISCOUNTS = {\"SAVE10\": 10, \"SAVE25\": 25}\n INDEX_HTML = (Path(__file__).parent / \"index.html\").read_text()\n \n"
+  },
+  {
+    "sha": "b29afd78e7051630223c5871904897a407bf8169",
+    "author": "Lukas Berg <lukas.berg@example.com>",
+    "date": "2026-11-17T10:23:00+01:00",
+    "message": "test: document live server fixture",
+    "files": [
+      "tests/conftest.py"
+    ],
+    "diff": "diff --git a/tests/conftest.py b/tests/conftest.py\nindex 1cd79d0..a7617ec 100644\n--- a/tests/conftest.py\n+++ b/tests/conftest.py\n@@ -26,6 +26,7 @@ def client():\n \n @pytest.fixture(scope=\"session\")\n def base_url():\n+    \"\"\"Serve the app on a real port so Playwright can load it.\"\"\"\n     port = int(os.environ.get(\"APP_PORT\", \"8765\"))\n     server = uvicorn.Server(uvicorn.Config(app, port=port, log_level=\"warning\"))\n     thread = threading.Thread(target=server.run, daemon=True)\n"
+  }
+]

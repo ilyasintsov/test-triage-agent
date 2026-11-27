@@ -1,0 +1,32 @@
+[
+  {
+    "sha": "08b8237131166990b84c6a46dd740308144d9744",
+    "author": "Priya Raman <priya.raman@example.com>",
+    "date": "2026-11-10T22:55:00+01:00",
+    "message": "docs: describe local setup",
+    "files": [
+      "README.md"
+    ],
+    "diff": "diff --git a/README.md b/README.md\nindex 64b3e83..b6546c4 100644\n--- a/README.md\n+++ b/README.md\n@@ -7,3 +7,5 @@ copies of it.\n ```bash\n uv run pytest\n ```\n+\n+Run locally: `make run`.\n"
+  },
+  {
+    "sha": "cdc772d9430ccff5fed417e2809dc809a32d8514",
+    "author": "Tom Okafor <tom.okafor@example.com>",
+    "date": "2026-11-09T18:11:00+01:00",
+    "message": "test(ui): avoid non-ascii in assertions",
+    "files": [
+      "tests/test_ui.py"
+    ],
+    "diff": "diff --git a/tests/test_ui.py b/tests/test_ui.py\nindex 4509752..9496fa9 100644\n--- a/tests/test_ui.py\n+++ b/tests/test_ui.py\n@@ -20,7 +20,7 @@ def test_add_order_shows_in_list(page: Page):\n     page.goto(\"/\")\n     add(page, \"pen\", qty=\"2\")\n     expect(page.locator(\"#orders li\")).to_have_count(1)\n-    expect(page.locator(\"#orders li\").first).to_contain_text(\"pen \u00d7 2\")\n+    expect(page.locator(\"#orders li\").first).to_contain_text(\"pen x 2\")\n \n \n def test_newest_order_is_first(page: Page):\n"
+  },
+  {
+    "sha": "4690370d030fc618fd4f8207494d2d7d7398fd42",
+    "author": "Maya Chen <maya.chen@example.com>",
+    "date": "2026-11-09T15:15:00+01:00",
+    "message": "test: document live server fixture",
+    "files": [
+      "tests/conftest.py"
+    ],
+    "diff": "diff --git a/tests/conftest.py b/tests/conftest.py\nindex 1cd79d0..a7617ec 100644\n--- a/tests/conftest.py\n+++ b/tests/conftest.py\n@@ -26,6 +26,7 @@ def client():\n \n @pytest.fixture(scope=\"session\")\n def base_url():\n+    \"\"\"Serve the app on a real port so Playwright can load it.\"\"\"\n     port = int(os.environ.get(\"APP_PORT\", \"8765\"))\n     server = uvicorn.Server(uvicorn.Config(app, port=port, log_level=\"warning\"))\n     thread = threading.Thread(target=server.run, daemon=True)\n"
+  }
+]

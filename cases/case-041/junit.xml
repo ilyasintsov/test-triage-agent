@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="3" skipped="0" tests="22" time="4.628" timestamp="2026-11-27T11:58:30.515625+01:00" hostname="ci-runner-07"><testcase classname="tests.test_api" name="test_create_order_can_be_fetched" time="0.007" /><testcase classname="tests.test_api" name="test_item_is_trimmed" time="0.003" /><testcase classname="tests.test_api" name="test_blank_item_is_rejected" time="0.002" /><testcase classname="tests.test_api" name="test_zero_qty_is_rejected" time="0.002" /><testcase classname="tests.test_api" name="test_unknown_discount_code_is_rejected" time="0.002" /><testcase classname="tests.test_api" name="test_discount_code_is_case_insensitive" time="0.003" /><testcase classname="tests.test_api" name="test_list_is_newest_first" time="0.006"><failure message="assert [1, 2] == [2, 1]&#10;  &#10;  At index 0 diff: 1 != 2&#10;  Use -v to get more diff">client = &lt;starlette.testclient.TestClient object at 0x10cbc6570&gt;
+
+    def test_list_is_newest_first(client):
+        first = make(client, item="pen")
+        second = make(client, item="cup")
+&gt;       assert [o["id"] for o in client.get("/orders").json()] == [second["id"], first["id"]]
+E       assert [1, 2] == [2, 1]
+E         
+E         At index 0 diff: 1 != 2
+E         Use -v to get more diff
+
+tests/test_api.py:42: AssertionError</failure></testcase><testcase classname="tests.test_api" name="test_pagination" time="0.013"><failure message="assert [1, 2] == [5, 4]&#10;  &#10;  At index 0 diff: 1 != 5&#10;  Use -v to get more diff">client = &lt;starlette.testclient.TestClient object at 0x10cbc7410&gt;
+
+    def test_pagination(client):
+        ids = [make(client, item=f"item{i}")["id"] for i in range(5)]
+        newest_first = ids[::-1]
+        page1 = client.get("/orders", params={"size": 2, "page": 1}).json()
+        page3 = client.get("/orders", params={"size": 2, "page": 3}).json()
+&gt;       assert [o["id"] for o in page1] == newest_first[:2]
+E       assert [1, 2] == [5, 4]
+E         
+E         At index 0 diff: 1 != 5
+E         Use -v to get more diff
+
+tests/test_api.py:50: AssertionError</failure></testcase><testcase classname="tests.test_api" name="test_search_is_case_insensitive" time="0.006" /><testcase classname="tests.test_api" name="test_missing_order_is_404" time="0.002" /><testcase classname="tests.test_api" name="test_total_applies_tax" time="0.004" /><testcase classname="tests.test_api" name="test_total_rounds_tax_to_nearest_cent" time="0.004" /><testcase classname="tests.test_api" name="test_discount_is_applied_before_tax" time="0.004" /><testcase classname="tests.test_api" name="test_delete_order" time="0.006" /><testcase classname="tests.test_api" name="test_delete_missing_order_is_404" time="0.002" /><testcase classname="tests.test_api" name="test_health" time="0.002" /><testcase classname="tests.test_ui" name="test_add_order_shows_in_list[chromium]" time="0.475" /><testcase classname="tests.test_ui" name="test_newest_order_is_first[chromium]" time="3.226"><failure message="AssertionError: Locator expected to contain text 'cup'&#10;Actual value: pen × 1 Delete &#10;Call log:&#10;  - Expect &quot;to_contain_text&quot; locator(&quot;#orders li&quot;).first with timeout 3000ms&#10;  - waiting for locator(&quot;#orders li&quot;).first&#10;    10 × locator resolved to &lt;li&gt;…&lt;/li&gt;&#10;       - unexpected value &quot;pen × 1 Delete&quot;&#10;&#10;Aria snapshot:&#10;- listitem:&#10;  - text: pen × 1&#10;  - button &quot;Delete&quot;">page = &lt;Page url='http://127.0.0.1:8765/'&gt;
+
+    def test_newest_order_is_first(page: Page):
+        page.goto("/")
+        add(page, "pen")
+        expect(page.locator("#orders li")).to_have_count(1)
+        add(page, "cup")
+&gt;       expect(page.locator("#orders li").first).to_contain_text("cup")
+E       AssertionError: Locator expected to contain text 'cup'
+E       Actual value: pen × 1 Delete 
+E       Call log:
+E         - Expect "to_contain_text" locator("#orders li").first with timeout 3000ms
+E         - waiting for locator("#orders li").first
+E           10 × locator resolved to &lt;li&gt;…&lt;/li&gt;
+E              - unexpected value "pen × 1 Delete"
+E       
+E       Aria snapshot:
+E       - listitem:
+E         - text: pen × 1
+E         - button "Delete"
+
+tests/test_ui.py:31: AssertionError</failure></testcase><testcase classname="tests.test_ui" name="test_form_clears_after_add[chromium]" time="0.190" /><testcase classname="tests.test_ui" name="test_blank_item_shows_error[chromium]" time="0.161" /><testcase classname="tests.test_ui" name="test_delete_removes_order[chromium]" time="0.255" /><testcase classname="tests.test_ui" name="test_existing_orders_load_on_open[chromium]" time="0.194" /></testsuite></testsuites>

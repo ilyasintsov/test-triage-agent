@@ -1,0 +1,32 @@
+[
+  {
+    "sha": "ef08d263a0f3a08747fcfd6b875f513a1431d0ee",
+    "author": "Lukas Berg <lukas.berg@example.com>",
+    "date": "2026-11-24T01:20:00+01:00",
+    "message": "test(ui): use list id selector",
+    "files": [
+      "tests/test_ui.py"
+    ],
+    "diff": "diff --git a/tests/test_ui.py b/tests/test_ui.py\nindex 4509752..cb4cb02 100644\n--- a/tests/test_ui.py\n+++ b/tests/test_ui.py\n@@ -19,8 +19,8 @@ def add(page: Page, item: str, qty: str = \"1\", price: str = \"100\"):\n def test_add_order_shows_in_list(page: Page):\n     page.goto(\"/\")\n     add(page, \"pen\", qty=\"2\")\n-    expect(page.locator(\"#orders li\")).to_have_count(1)\n-    expect(page.locator(\"#orders li\").first).to_contain_text(\"pen \u00d7 2\")\n+    expect(page.locator(\"#order-list li\")).to_have_count(1)\n+    expect(page.locator(\"#order-list li\").first).to_contain_text(\"pen \u00d7 2\")\n \n \n def test_newest_order_is_first(page: Page):\n"
+  },
+  {
+    "sha": "1a0747b0410126d9cf3dfda8e0d045ec7603d492",
+    "author": "Sara Novak <sara.novak@example.com>",
+    "date": "2026-11-22T23:02:00+01:00",
+    "message": "docs: describe local setup",
+    "files": [
+      "README.md"
+    ],
+    "diff": "diff --git a/README.md b/README.md\nindex 64b3e83..b6546c4 100644\n--- a/README.md\n+++ b/README.md\n@@ -7,3 +7,5 @@ copies of it.\n ```bash\n uv run pytest\n ```\n+\n+Run locally: `make run`.\n"
+  },
+  {
+    "sha": "0f7121df771f66186c5cccb8bd1b19854a88bfd5",
+    "author": "Maya Chen <maya.chen@example.com>",
+    "date": "2026-11-22T00:33:00+01:00",
+    "message": "test: document live server fixture",
+    "files": [
+      "tests/conftest.py"
+    ],
+    "diff": "diff --git a/tests/conftest.py b/tests/conftest.py\nindex 1cd79d0..a7617ec 100644\n--- a/tests/conftest.py\n+++ b/tests/conftest.py\n@@ -26,6 +26,7 @@ def client():\n \n @pytest.fixture(scope=\"session\")\n def base_url():\n+    \"\"\"Serve the app on a real port so Playwright can load it.\"\"\"\n     port = int(os.environ.get(\"APP_PORT\", \"8765\"))\n     server = uvicorn.Server(uvicorn.Config(app, port=port, log_level=\"warning\"))\n     thread = threading.Thread(target=server.run, daemon=True)\n"
+  }
+]

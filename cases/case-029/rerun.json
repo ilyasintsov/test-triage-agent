@@ -1,0 +1,26 @@
+{
+  "failed": [
+    "tests.test_api::test_create_order_can_be_fetched",
+    "tests.test_api::test_item_is_trimmed",
+    "tests.test_api::test_blank_item_is_rejected",
+    "tests.test_api::test_zero_qty_is_rejected",
+    "tests.test_api::test_unknown_discount_code_is_rejected",
+    "tests.test_api::test_discount_code_is_case_insensitive",
+    "tests.test_api::test_list_is_newest_first",
+    "tests.test_api::test_pagination",
+    "tests.test_api::test_search_is_case_insensitive",
+    "tests.test_api::test_missing_order_is_404",
+    "tests.test_api::test_total_applies_tax",
+    "tests.test_api::test_total_rounds_tax_to_nearest_cent",
+    "tests.test_api::test_discount_is_applied_before_tax",
+    "tests.test_api::test_delete_order",
+    "tests.test_api::test_delete_missing_order_is_404",
+    "tests.test_api::test_health",
+    "tests.test_ui::test_add_order_shows_in_list[chromium]",
+    "tests.test_ui::test_newest_order_is_first[chromium]",
+    "tests.test_ui::test_form_clears_after_add[chromium]",
+    "tests.test_ui::test_blank_item_shows_error[chromium]",
+    "tests.test_ui::test_delete_removes_order[chromium]",
+    "tests.test_ui::test_existing_orders_load_on_open[chromium]"
+  ]
+}

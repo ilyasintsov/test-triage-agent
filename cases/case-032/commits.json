@@ -1,0 +1,43 @@
+[
+  {
+    "sha": "c642d5be4ef41cc8ce640fe7710ffa7af9cd9449",
+    "author": "Tom Okafor <tom.okafor@example.com>",
+    "date": "2026-11-04T09:12:00+01:00",
+    "message": "perf: use instr() for item search instead of LIKE",
+    "files": [
+      "app.py"
+    ],
+    "diff": "diff --git a/app.py b/app.py\nindex da620d5..1e0deba 100644\n--- a/app.py\n+++ b/app.py\n@@ -60,8 +60,8 @@ def list_orders(page: int = 1, size: int = 10, q: str = \"\") -> list[dict]:\n     offset = (page - 1) * size\n     with closing(db()) as conn:\n         rows = conn.execute(\n-            \"SELECT * FROM orders WHERE item LIKE ? ORDER BY id DESC LIMIT ? OFFSET ?\",\n-            (f\"%{q}%\", size, offset),\n+            \"SELECT * FROM orders WHERE instr(item, ?) > 0 ORDER BY id DESC LIMIT ? OFFSET ?\",\n+            (q, size, offset),\n         ).fetchall()\n     return [dict(row) for row in rows]\n \n"
+  },
+  {
+    "sha": "3356e63039a03b92dc1ec8be75996d03fd7296f3",
+    "author": "Maya Chen <maya.chen@example.com>",
+    "date": "2026-11-03T11:09:00+01:00",
+    "message": "test: document live server fixture",
+    "files": [
+      "tests/conftest.py"
+    ],
+    "diff": "diff --git a/tests/conftest.py b/tests/conftest.py\nindex 1cd79d0..a7617ec 100644\n--- a/tests/conftest.py\n+++ b/tests/conftest.py\n@@ -26,6 +26,7 @@ def client():\n \n @pytest.fixture(scope=\"session\")\n def base_url():\n+    \"\"\"Serve the app on a real port so Playwright can load it.\"\"\"\n     port = int(os.environ.get(\"APP_PORT\", \"8765\"))\n     server = uvicorn.Server(uvicorn.Config(app, port=port, log_level=\"warning\"))\n     thread = threading.Thread(target=server.run, daemon=True)\n"
+  },
+  {
+    "sha": "9f4d980efb0f0b90de6333a919fea8270bef60e7",
+    "author": "Tom Okafor <tom.okafor@example.com>",
+    "date": "2026-11-03T05:22:00+01:00",
+    "message": "feat: add version endpoint",
+    "files": [
+      "app.py"
+    ],
+    "diff": "diff --git a/app.py b/app.py\nindex 96dd5e0..da620d5 100644\n--- a/app.py\n+++ b/app.py\n@@ -109,3 +109,8 @@ def index() -> str:\n @app.get(\"/health\")\n def health() -> dict:\n     return {\"status\": \"ok\"}\n+\n+\n+@app.get(\"/version\")\n+def version() -> dict:\n+    return {\"version\": os.environ.get(\"APP_VERSION\", \"dev\")}\n"
+  },
+  {
+    "sha": "d2766cedddef7ec7e839c6d305c6e5057ca550a8",
+    "author": "Maya Chen <maya.chen@example.com>",
+    "date": "2026-11-02T11:08:00+01:00",
+    "message": "feat: add health endpoint",
+    "files": [
+      "app.py",
+      "tests/test_api.py"
+    ],
+    "diff": "diff --git a/app.py b/app.py\nindex acc3b72..96dd5e0 100644\n--- a/app.py\n+++ b/app.py\n@@ -104,3 +104,8 @@ def delete_order(order_id: int) -> None:\n @app.get(\"/\", response_class=HTMLResponse)\n def index() -> str:\n     return INDEX_HTML\n+\n+\n+@app.get(\"/health\")\n+def health() -> dict:\n+    return {\"status\": \"ok\"}\ndiff --git a/tests/test_api.py b/tests/test_api.py\nindex f2da156..f9c711f 100644\n--- a/tests/test_api.py\n+++ b/tests/test_api.py\n@@ -90,3 +90,7 @@ def test_delete_order(client):\n \n def test_delete_missing_order_is_404(client):\n     assert client.delete(\"/orders/999999\").status_code == 404\n+\n+\n+def test_health(client):\n+    assert client.get(\"/health\").json() == {\"status\": \"ok\"}\n"
+  }
+]

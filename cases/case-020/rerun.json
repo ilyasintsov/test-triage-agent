@@ -1,0 +1,6 @@
+{
+  "failed": [
+    "tests.test_api::test_list_is_newest_first",
+    "tests.test_ui::test_existing_orders_load_on_open[chromium]"
+  ]
+}

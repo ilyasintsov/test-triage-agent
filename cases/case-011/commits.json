@@ -1,0 +1,32 @@
+[
+  {
+    "sha": "cb355cc148fbdd9e177a0da500c698fdb712203b",
+    "author": "Lukas Berg <lukas.berg@example.com>",
+    "date": "2026-11-21T22:19:00+01:00",
+    "message": "chore: add make targets",
+    "files": [
+      "Makefile"
+    ],
+    "diff": "diff --git a/Makefile b/Makefile\nnew file mode 100644\nindex 0000000..36f3e5d\n--- /dev/null\n+++ b/Makefile\n@@ -0,0 +1,5 @@\n+test:\n+\tpytest\n+\n+run:\n+\tuvicorn app:app --reload\n"
+  },
+  {
+    "sha": "40e95732830f315f63a6197055f026707646fca1",
+    "author": "Tom Okafor <tom.okafor@example.com>",
+    "date": "2026-11-21T19:46:00+01:00",
+    "message": "test(ui): open the page before seeding orders",
+    "files": [
+      "tests/test_ui.py"
+    ],
+    "diff": "diff --git a/tests/test_ui.py b/tests/test_ui.py\nindex 4509752..e330ebf 100644\n--- a/tests/test_ui.py\n+++ b/tests/test_ui.py\n@@ -51,7 +51,7 @@ def test_delete_removes_order(page: Page):\n \n \n def test_existing_orders_load_on_open(page: Page, client):\n+    page.goto(\"/\")\n     client.post(\"/orders\", json={\"item\": \"pen\", \"qty\": 1, \"price_cents\": 100})\n     client.post(\"/orders\", json={\"item\": \"cup\", \"qty\": 1, \"price_cents\": 100})\n-    page.goto(\"/\")\n     expect(page.locator(\"#orders li\")).to_have_count(2)\n"
+  },
+  {
+    "sha": "45417fe5ed781b4369d030b6ff870126c81fa053",
+    "author": "Lukas Berg <lukas.berg@example.com>",
+    "date": "2026-11-20T16:29:00+01:00",
+    "message": "feat: add version endpoint",
+    "files": [
+      "app.py"
+    ],
+    "diff": "diff --git a/app.py b/app.py\nindex acc3b72..7a0c50e 100644\n--- a/app.py\n+++ b/app.py\n@@ -104,3 +104,8 @@ def delete_order(order_id: int) -> None:\n @app.get(\"/\", response_class=HTMLResponse)\n def index() -> str:\n     return INDEX_HTML\n+\n+\n+@app.get(\"/version\")\n+def version() -> dict:\n+    return {\"version\": os.environ.get(\"APP_VERSION\", \"dev\")}\n"
+  }
+]

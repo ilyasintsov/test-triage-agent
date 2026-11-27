@@ -1,0 +1,52 @@
+[
+  {
+    "sha": "b16c8b63d0353be6c54a4fd0710502543a71feac",
+    "author": "Priya Raman <priya.raman@example.com>",
+    "date": "2026-11-08T09:00:00+01:00",
+    "message": "docs: explain discount table",
+    "files": [
+      "app.py"
+    ],
+    "diff": "diff --git a/app.py b/app.py\nindex acc3b72..0cda257 100644\n--- a/app.py\n+++ b/app.py\n@@ -8,6 +8,7 @@ from fastapi.responses import HTMLResponse\n from pydantic import BaseModel\n \n TAX_RATE = float(os.environ.get(\"TAX_RATE\", \"0.2\"))\n+# Percent off the subtotal, applied before tax.\n DISCOUNTS = {\"SAVE10\": 10, \"SAVE25\": 25}\n INDEX_HTML = (Path(__file__).parent / \"index.html\").read_text()\n \n"
+  },
+  {
+    "sha": "c81c40af600f55319c21a2e7440543e946bf8b40",
+    "author": "Maya Chen <maya.chen@example.com>",
+    "date": "2026-11-07T23:46:00+01:00",
+    "message": "fix(ui): send deletes as POST for corporate proxies",
+    "files": [
+      "index.html"
+    ],
+    "diff": "diff --git a/index.html b/index.html\nindex ee72d4e..7ab2984 100644\n--- a/index.html\n+++ b/index.html\n@@ -26,7 +26,7 @@ async function load() {\n     const del = document.createElement(\"button\");\n     del.textContent = \"Delete\";\n     del.onclick = async () => {\n-      await fetch(`/orders/${o.id}`, { method: \"DELETE\" });\n+      await fetch(`/orders/${o.id}`, { method: \"POST\" });\n       load();\n     };\n     li.append(del);\n"
+  },
+  {
+    "sha": "77f377231cee2c1df47524ff89d3aaa82816b821",
+    "author": "Lukas Berg <lukas.berg@example.com>",
+    "date": "2026-11-07T09:57:00+01:00",
+    "message": "chore: add editorconfig",
+    "files": [
+      ".editorconfig"
+    ],
+    "diff": "diff --git a/.editorconfig b/.editorconfig\nnew file mode 100644\nindex 0000000..2a611d7\n--- /dev/null\n+++ b/.editorconfig\n@@ -0,0 +1,4 @@\n+root = true\n+\n+[*]\n+indent_size = 4\n"
+  },
+  {
+    "sha": "3418558f1a3ee75fdc7fbfa31f071a9de86f9fa5",
+    "author": "Priya Raman <priya.raman@example.com>",
+    "date": "2026-11-06T18:14:00+01:00",
+    "message": "docs: changelog for 1.4.0",
+    "files": [
+      "CHANGELOG.md"
+    ],
+    "diff": "diff --git a/CHANGELOG.md b/CHANGELOG.md\nnew file mode 100644\nindex 0000000..5f6104e\n--- /dev/null\n+++ b/CHANGELOG.md\n@@ -0,0 +1,3 @@\n+## 1.4.0\n+\n+- Faster order list\n"
+  },
+  {
+    "sha": "fc710728b573cd60488003c83a0f88b03aafbd7a",
+    "author": "Maya Chen <maya.chen@example.com>",
+    "date": "2026-11-05T19:46:00+01:00",
+    "message": "test: document live server fixture",
+    "files": [
+      "tests/conftest.py"
+    ],
+    "diff": "diff --git a/tests/conftest.py b/tests/conftest.py\nindex 1cd79d0..a7617ec 100644\n--- a/tests/conftest.py\n+++ b/tests/conftest.py\n@@ -26,6 +26,7 @@ def client():\n \n @pytest.fixture(scope=\"session\")\n def base_url():\n+    \"\"\"Serve the app on a real port so Playwright can load it.\"\"\"\n     port = int(os.environ.get(\"APP_PORT\", \"8765\"))\n     server = uvicorn.Server(uvicorn.Config(app, port=port, log_level=\"warning\"))\n     thread = threading.Thread(target=server.run, daemon=True)\n"
+  }
+]

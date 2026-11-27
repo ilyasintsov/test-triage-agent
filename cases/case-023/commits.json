@@ -1,0 +1,32 @@
+[
+  {
+    "sha": "b89abe26d00aaf81e8c2fb74d8641d9b3f3978df",
+    "author": "Maya Chen <maya.chen@example.com>",
+    "date": "2026-11-08T19:20:00+01:00",
+    "message": "chore: add make targets",
+    "files": [
+      "Makefile"
+    ],
+    "diff": "diff --git a/Makefile b/Makefile\nnew file mode 100644\nindex 0000000..36f3e5d\n--- /dev/null\n+++ b/Makefile\n@@ -0,0 +1,5 @@\n+test:\n+\tpytest\n+\n+run:\n+\tuvicorn app:app --reload\n"
+  },
+  {
+    "sha": "dede62daef4641945969eda829b748733128e8dd",
+    "author": "Maya Chen <maya.chen@example.com>",
+    "date": "2026-11-08T11:03:00+01:00",
+    "message": "test: any discount code reduces the total",
+    "files": [
+      "tests/test_api.py"
+    ],
+    "diff": "diff --git a/tests/test_api.py b/tests/test_api.py\nindex f2da156..5b4547b 100644\n--- a/tests/test_api.py\n+++ b/tests/test_api.py\n@@ -90,3 +90,10 @@ def test_delete_order(client):\n \n def test_delete_missing_order_is_404(client):\n     assert client.delete(\"/orders/999999\").status_code == 404\n+\n+\n+def test_any_discount_code_reduces_total(client):\n+    code = next(iter({\"SAVE10\", \"SAVE25\"}))\n+    order = make(client, qty=1, price_cents=1000, discount_code=code)\n+    total = client.get(f\"/orders/{order['id']}/total\").json()\n+    assert total[\"discount_cents\"] == 100\n"
+  },
+  {
+    "sha": "343ed117d6fc280276e33d484b95673b2bc093d5",
+    "author": "Priya Raman <priya.raman@example.com>",
+    "date": "2026-11-07T08:07:00+01:00",
+    "message": "docs: describe local setup",
+    "files": [
+      "README.md"
+    ],
+    "diff": "diff --git a/README.md b/README.md\nindex 64b3e83..b6546c4 100644\n--- a/README.md\n+++ b/README.md\n@@ -7,3 +7,5 @@ copies of it.\n ```bash\n uv run pytest\n ```\n+\n+Run locally: `make run`.\n"
+  }
+]

@@ -1,0 +1,76 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.12.4, pytest-9.2.0, pluggy-1.7.0
+rootdir: /builds/orders-app
+configfile: pytest.ini
+testpaths: tests
+plugins: playwright-0.10.0, anyio-4.16.0
+collected 21 items
+
+tests/test_api.py .FF............                                        [ 71%]
+tests/test_ui.py ...F..                                                  [100%]
+
+=================================== FAILURES ===================================
+_____________________________ test_item_is_trimmed _____________________________
+
+client = <starlette.testclient.TestClient object at 0x10cd822d0>
+
+    def test_item_is_trimmed(client):
+>       assert make(client, item="  pen  ")["item"] == "pen"
+E       AssertionError: assert '  pen  ' == 'pen'
+E         
+E         - pen
+E         +   pen
+
+tests/test_api.py:15: AssertionError
+_________________________ test_blank_item_is_rejected __________________________
+
+client = <starlette.testclient.TestClient object at 0x10cd83e90>
+
+    def test_blank_item_is_rejected(client):
+        response = client.post("/orders", json={"item": "   ", "qty": 1, "price_cents": 100})
+>       assert response.status_code == 422
+E       assert 201 == 422
+E        +  where 201 = <Response [201 Created]>.status_code
+
+tests/test_api.py:20: AssertionError
+____________________ test_blank_item_shows_error[chromium] _____________________
+
+page = <Page url='http://127.0.0.1:8765/'>
+
+    def test_blank_item_shows_error(page: Page):
+        page.goto("/")
+        add(page, "   ")
+>       expect(page.get_by_role("alert")).to_have_text("item must not be empty")
+E       AssertionError: Locator expected to have text 'item must not be empty'
+E       Actual value:  
+E       Call log:
+E         - Expect "to_have_text" get_by_role("alert") with timeout 3000ms
+E         - waiting for get_by_role("alert")
+E           10 × locator resolved to <p id="error" role="alert"></p>
+E              - unexpected value ""
+E       
+E       Aria snapshot:
+E       - heading "Orders" [level=1]
+E       - textbox "Item"
+E       - spinbutton: "1"
+E       - spinbutton "Price (cents)"
+E       - button "Add"
+E       - alert
+E       - list:
+E         - listitem:
+E           - text: × 1
+E           - button "Delete"
+
+tests/test_ui.py:43: AssertionError
+=============================== warnings summary ===============================
+../../../../../../../../opt/venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /opt/venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+- generated xml file: /builds/orders-app/junit.xml -
+=========================== short test summary info ============================
+FAILED tests/test_api.py::test_item_is_trimmed - AssertionError: assert '  pe...
+FAILED tests/test_api.py::test_blank_item_is_rejected - assert 201 == 422
+FAILED tests/test_ui.py::test_blank_item_shows_error[chromium] - AssertionErr...
+=================== 3 failed, 18 passed, 1 warning in 4.49s ====================

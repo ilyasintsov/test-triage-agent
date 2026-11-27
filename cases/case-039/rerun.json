@@ -1,0 +1,5 @@
+{
+  "failed": [
+    "tests.test_api::test_total_applies_tax"
+  ]
+}

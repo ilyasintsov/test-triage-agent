@@ -1,0 +1,11 @@
+{
+  "failed": [
+    "tests.test_api::test_list_is_newest_first",
+    "tests.test_api::test_pagination",
+    "tests.test_api::test_search_is_case_insensitive",
+    "tests.test_ui::test_add_order_shows_in_list[chromium]",
+    "tests.test_ui::test_newest_order_is_first[chromium]",
+    "tests.test_ui::test_delete_removes_order[chromium]",
+    "tests.test_ui::test_existing_orders_load_on_open[chromium]"
+  ]
+}

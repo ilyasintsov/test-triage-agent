@@ -1,0 +1,42 @@
+[
+  {
+    "sha": "bbf47ad846f93316f7631cacf3972c1afbe6962c",
+    "author": "Maya Chen <maya.chen@example.com>",
+    "date": "2026-11-24T17:29:00+01:00",
+    "message": "feat: add version endpoint",
+    "files": [
+      "app.py"
+    ],
+    "diff": "diff --git a/app.py b/app.py\nindex 0cda257..b2c71d6 100644\n--- a/app.py\n+++ b/app.py\n@@ -105,3 +105,8 @@ def delete_order(order_id: int) -> None:\n @app.get(\"/\", response_class=HTMLResponse)\n def index() -> str:\n     return INDEX_HTML\n+\n+\n+@app.get(\"/version\")\n+def version() -> dict:\n+    return {\"version\": os.environ.get(\"APP_VERSION\", \"dev\")}\n"
+  },
+  {
+    "sha": "f1885a7bea4a09327f6f9f45f0b0c66e7a586393",
+    "author": "Tom Okafor <tom.okafor@example.com>",
+    "date": "2026-11-24T03:55:00+01:00",
+    "message": "test: speed up suite by dropping per-test cleanup",
+    "files": [
+      "tests/conftest.py"
+    ],
+    "diff": "diff --git a/tests/conftest.py b/tests/conftest.py\nindex 1cd79d0..67a89fc 100644\n--- a/tests/conftest.py\n+++ b/tests/conftest.py\n@@ -13,7 +13,7 @@ from app import app, db\n from fastapi.testclient import TestClient\n \n \n-@pytest.fixture(autouse=True)\n+@pytest.fixture\n def clean_db():\n     with closing(db()) as conn, conn:\n         conn.execute(\"DELETE FROM orders\")\n"
+  },
+  {
+    "sha": "124592c1de64fd973565f61f738f59c6c6293d90",
+    "author": "Maya Chen <maya.chen@example.com>",
+    "date": "2026-11-23T15:25:00+01:00",
+    "message": "docs: describe local setup",
+    "files": [
+      "README.md"
+    ],
+    "diff": "diff --git a/README.md b/README.md\nindex 64b3e83..b6546c4 100644\n--- a/README.md\n+++ b/README.md\n@@ -7,3 +7,5 @@ copies of it.\n ```bash\n uv run pytest\n ```\n+\n+Run locally: `make run`.\n"
+  },
+  {
+    "sha": "9edaa76abf677aa57e37f1b984f51cb68b25001e",
+    "author": "Maya Chen <maya.chen@example.com>",
+    "date": "2026-11-22T10:15:00+01:00",
+    "message": "docs: explain discount table",
+    "files": [
+      "app.py"
+    ],
+    "diff": "diff --git a/app.py b/app.py\nindex acc3b72..0cda257 100644\n--- a/app.py\n+++ b/app.py\n@@ -8,6 +8,7 @@ from fastapi.responses import HTMLResponse\n from pydantic import BaseModel\n \n TAX_RATE = float(os.environ.get(\"TAX_RATE\", \"0.2\"))\n+# Percent off the subtotal, applied before tax.\n DISCOUNTS = {\"SAVE10\": 10, \"SAVE25\": 25}\n INDEX_HTML = (Path(__file__).parent / \"index.html\").read_text()\n \n"
+  }
+]

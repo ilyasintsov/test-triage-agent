@@ -1,0 +1,378 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.12.4, pytest-9.2.0, pluggy-1.7.0
+rootdir: /builds/orders-app
+configfile: pytest.ini
+testpaths: tests
+plugins: playwright-0.10.0, anyio-4.16.0
+collected 21 items
+
+tests/test_api.py EEEEEEEEEEEEEEE                                        [ 71%]
+tests/test_ui.py EEEEEE                                                  [100%]
+
+==================================== ERRORS ====================================
+______________ ERROR at setup of test_create_order_can_be_fetched ______________
+
+    @pytest.fixture(autouse=True)
+    def clean_db():
+>       with closing(db()) as conn, conn:
+                     ^^^^
+
+tests/conftest.py:18: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def db() -> sqlite3.Connection:
+>       conn = sqlite3.connect(os.environ["DB_PATH"])
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       sqlite3.OperationalError: unable to open database file
+
+app.py:18: OperationalError
+____________________ ERROR at setup of test_item_is_trimmed ____________________
+
+    @pytest.fixture(autouse=True)
+    def clean_db():
+>       with closing(db()) as conn, conn:
+                     ^^^^
+
+tests/conftest.py:18: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def db() -> sqlite3.Connection:
+>       conn = sqlite3.connect(os.environ["DB_PATH"])
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       sqlite3.OperationalError: unable to open database file
+
+app.py:18: OperationalError
+________________ ERROR at setup of test_blank_item_is_rejected _________________
+
+    @pytest.fixture(autouse=True)
+    def clean_db():
+>       with closing(db()) as conn, conn:
+                     ^^^^
+
+tests/conftest.py:18: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def db() -> sqlite3.Connection:
+>       conn = sqlite3.connect(os.environ["DB_PATH"])
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       sqlite3.OperationalError: unable to open database file
+
+app.py:18: OperationalError
+_________________ ERROR at setup of test_zero_qty_is_rejected __________________
+
+    @pytest.fixture(autouse=True)
+    def clean_db():
+>       with closing(db()) as conn, conn:
+                     ^^^^
+
+tests/conftest.py:18: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def db() -> sqlite3.Connection:
+>       conn = sqlite3.connect(os.environ["DB_PATH"])
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       sqlite3.OperationalError: unable to open database file
+
+app.py:18: OperationalError
+___________ ERROR at setup of test_unknown_discount_code_is_rejected ___________
+
+    @pytest.fixture(autouse=True)
+    def clean_db():
+>       with closing(db()) as conn, conn:
+                     ^^^^
+
+tests/conftest.py:18: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def db() -> sqlite3.Connection:
+>       conn = sqlite3.connect(os.environ["DB_PATH"])
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       sqlite3.OperationalError: unable to open database file
+
+app.py:18: OperationalError
+___________ ERROR at setup of test_discount_code_is_case_insensitive ___________
+
+    @pytest.fixture(autouse=True)
+    def clean_db():
+>       with closing(db()) as conn, conn:
+                     ^^^^
+
+tests/conftest.py:18: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def db() -> sqlite3.Connection:
+>       conn = sqlite3.connect(os.environ["DB_PATH"])
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       sqlite3.OperationalError: unable to open database file
+
+app.py:18: OperationalError
+_________________ ERROR at setup of test_list_is_newest_first __________________
+
+    @pytest.fixture(autouse=True)
+    def clean_db():
+>       with closing(db()) as conn, conn:
+                     ^^^^
+
+tests/conftest.py:18: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def db() -> sqlite3.Connection:
+>       conn = sqlite3.connect(os.environ["DB_PATH"])
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       sqlite3.OperationalError: unable to open database file
+
+app.py:18: OperationalError
+______________________ ERROR at setup of test_pagination _______________________
+
+    @pytest.fixture(autouse=True)
+    def clean_db():
+>       with closing(db()) as conn, conn:
+                     ^^^^
+
+tests/conftest.py:18: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def db() -> sqlite3.Connection:
+>       conn = sqlite3.connect(os.environ["DB_PATH"])
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       sqlite3.OperationalError: unable to open database file
+
+app.py:18: OperationalError
+______________ ERROR at setup of test_search_is_case_insensitive _______________
+
+    @pytest.fixture(autouse=True)
+    def clean_db():
+>       with closing(db()) as conn, conn:
+                     ^^^^
+
+tests/conftest.py:18: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def db() -> sqlite3.Connection:
+>       conn = sqlite3.connect(os.environ["DB_PATH"])
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       sqlite3.OperationalError: unable to open database file
+
+app.py:18: OperationalError
+_________________ ERROR at setup of test_missing_order_is_404 __________________
+
+    @pytest.fixture(autouse=True)
+    def clean_db():
+>       with closing(db()) as conn, conn:
+                     ^^^^
+
+tests/conftest.py:18: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def db() -> sqlite3.Connection:
+>       conn = sqlite3.connect(os.environ["DB_PATH"])
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       sqlite3.OperationalError: unable to open database file
+
+app.py:18: OperationalError
+___________________ ERROR at setup of test_total_applies_tax ___________________
+
+    @pytest.fixture(autouse=True)
+    def clean_db():
+>       with closing(db()) as conn, conn:
+                     ^^^^
+
+tests/conftest.py:18: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def db() -> sqlite3.Connection:
+>       conn = sqlite3.connect(os.environ["DB_PATH"])
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       sqlite3.OperationalError: unable to open database file
+
+app.py:18: OperationalError
+___________ ERROR at setup of test_total_rounds_tax_to_nearest_cent ____________
+
+    @pytest.fixture(autouse=True)
+    def clean_db():
+>       with closing(db()) as conn, conn:
+                     ^^^^
+
+tests/conftest.py:18: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def db() -> sqlite3.Connection:
+>       conn = sqlite3.connect(os.environ["DB_PATH"])
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       sqlite3.OperationalError: unable to open database file
+
+app.py:18: OperationalError
+____________ ERROR at setup of test_discount_is_applied_before_tax _____________
+
+    @pytest.fixture(autouse=True)
+    def clean_db():
+>       with closing(db()) as conn, conn:
+                     ^^^^
+
+tests/conftest.py:18: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def db() -> sqlite3.Connection:
+>       conn = sqlite3.connect(os.environ["DB_PATH"])
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       sqlite3.OperationalError: unable to open database file
+
+app.py:18: OperationalError
+_____________________ ERROR at setup of test_delete_order ______________________
+
+    @pytest.fixture(autouse=True)
+    def clean_db():
+>       with closing(db()) as conn, conn:
+                     ^^^^
+
+tests/conftest.py:18: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def db() -> sqlite3.Connection:
+>       conn = sqlite3.connect(os.environ["DB_PATH"])
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       sqlite3.OperationalError: unable to open database file
+
+app.py:18: OperationalError
+______________ ERROR at setup of test_delete_missing_order_is_404 ______________
+
+    @pytest.fixture(autouse=True)
+    def clean_db():
+>       with closing(db()) as conn, conn:
+                     ^^^^
+
+tests/conftest.py:18: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def db() -> sqlite3.Connection:
+>       conn = sqlite3.connect(os.environ["DB_PATH"])
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       sqlite3.OperationalError: unable to open database file
+
+app.py:18: OperationalError
+___________ ERROR at setup of test_add_order_shows_in_list[chromium] ___________
+
+    @pytest.fixture(autouse=True)
+    def clean_db():
+>       with closing(db()) as conn, conn:
+                     ^^^^
+
+tests/conftest.py:18: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def db() -> sqlite3.Connection:
+>       conn = sqlite3.connect(os.environ["DB_PATH"])
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       sqlite3.OperationalError: unable to open database file
+
+app.py:18: OperationalError
+____________ ERROR at setup of test_newest_order_is_first[chromium] ____________
+
+    @pytest.fixture(autouse=True)
+    def clean_db():
+>       with closing(db()) as conn, conn:
+                     ^^^^
+
+tests/conftest.py:18: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def db() -> sqlite3.Connection:
+>       conn = sqlite3.connect(os.environ["DB_PATH"])
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       sqlite3.OperationalError: unable to open database file
+
+app.py:18: OperationalError
+____________ ERROR at setup of test_form_clears_after_add[chromium] ____________
+
+    @pytest.fixture(autouse=True)
+    def clean_db():
+>       with closing(db()) as conn, conn:
+                     ^^^^
+
+tests/conftest.py:18: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def db() -> sqlite3.Connection:
+>       conn = sqlite3.connect(os.environ["DB_PATH"])
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       sqlite3.OperationalError: unable to open database file
+
+app.py:18: OperationalError
+___________ ERROR at setup of test_blank_item_shows_error[chromium] ____________
+
+    @pytest.fixture(autouse=True)
+    def clean_db():
+>       with closing(db()) as conn, conn:
+                     ^^^^
+
+tests/conftest.py:18: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def db() -> sqlite3.Connection:
+>       conn = sqlite3.connect(os.environ["DB_PATH"])
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       sqlite3.OperationalError: unable to open database file
+
+app.py:18: OperationalError
+____________ ERROR at setup of test_delete_removes_order[chromium] _____________
+
+    @pytest.fixture(autouse=True)
+    def clean_db():
+>       with closing(db()) as conn, conn:
+                     ^^^^
+
+tests/conftest.py:18: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def db() -> sqlite3.Connection:
+>       conn = sqlite3.connect(os.environ["DB_PATH"])
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       sqlite3.OperationalError: unable to open database file
+
+app.py:18: OperationalError
+________ ERROR at setup of test_existing_orders_load_on_open[chromium] _________
+
+    @pytest.fixture(autouse=True)
+    def clean_db():
+>       with closing(db()) as conn, conn:
+                     ^^^^
+
+tests/conftest.py:18: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def db() -> sqlite3.Connection:
+>       conn = sqlite3.connect(os.environ["DB_PATH"])
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       sqlite3.OperationalError: unable to open database file
+
+app.py:18: OperationalError
+=============================== warnings summary ===============================
+../../../../../../../../opt/venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /opt/venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+- generated xml file: /builds/orders-app/junit.xml -
+=========================== short test summary info ============================
+ERROR tests/test_api.py::test_create_order_can_be_fetched - sqlite3.Operation...
+ERROR tests/test_api.py::test_item_is_trimmed - sqlite3.OperationalError: una...
+ERROR tests/test_api.py::test_blank_item_is_rejected - sqlite3.OperationalErr...
+ERROR tests/test_api.py::test_zero_qty_is_rejected - sqlite3.OperationalError...
+ERROR tests/test_api.py::test_unknown_discount_code_is_rejected - sqlite3.Ope...
+ERROR tests/test_api.py::test_discount_code_is_case_insensitive - sqlite3.Ope...
+ERROR tests/test_api.py::test_list_is_newest_first - sqlite3.OperationalError...
+ERROR tests/test_api.py::test_pagination - sqlite3.OperationalError: unable t...
+ERROR tests/test_api.py::test_search_is_case_insensitive - sqlite3.Operationa...
+ERROR tests/test_api.py::test_missing_order_is_404 - sqlite3.OperationalError...
+ERROR tests/test_api.py::test_total_applies_tax - sqlite3.OperationalError: u...
+ERROR tests/test_api.py::test_total_rounds_tax_to_nearest_cent - sqlite3.Oper...
+ERROR tests/test_api.py::test_discount_is_applied_before_tax - sqlite3.Operat...
+ERROR tests/test_api.py::test_delete_order - sqlite3.OperationalError: unable...
+ERROR tests/test_api.py::test_delete_missing_order_is_404 - sqlite3.Operation...
+ERROR tests/test_ui.py::test_add_order_shows_in_list[chromium] - sqlite3.Oper...
+ERROR tests/test_ui.py::test_newest_order_is_first[chromium] - sqlite3.Operat...
+ERROR tests/test_ui.py::test_form_clears_after_add[chromium] - sqlite3.Operat...
+ERROR tests/test_ui.py::test_blank_item_shows_error[chromium] - sqlite3.Opera...
+ERROR tests/test_ui.py::test_delete_removes_order[chromium] - sqlite3.Operati...
+ERROR tests/test_ui.py::test_existing_orders_load_on_open[chromium] - sqlite3...
+======================== 1 warning, 21 errors in 0.44s =========================

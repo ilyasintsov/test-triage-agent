@@ -1,0 +1,47 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.12.4, pytest-9.2.0, pluggy-1.7.0
+rootdir: /builds/orders-app
+configfile: pytest.ini
+testpaths: tests
+plugins: playwright-0.10.0, anyio-4.16.0
+collected 23 items
+
+tests/test_api.py ................                                       [ 69%]
+tests/test_ui.py ......F                                                 [100%]
+
+=================================== FAILURES ===================================
+______________________ test_add_several_orders[chromium] _______________________
+
+page = <Page url='http://127.0.0.1:8765/'>
+
+    def test_add_several_orders(page: Page):
+        page.goto("/")
+        for item in {"pen", "cup", "hat"}:
+            add(page, item)
+            expect(page.get_by_placeholder("Item")).to_have_value("")
+        expect(page.locator("#orders li")).to_have_count(3)
+>       expect(page.locator("#orders li").first).to_contain_text("hat")
+E       AssertionError: Locator expected to contain text 'hat'
+E       Actual value: cup × 1 Delete 
+E       Call log:
+E         - Expect "to_contain_text" locator("#orders li").first with timeout 3000ms
+E         - waiting for locator("#orders li").first
+E           10 × locator resolved to <li>…</li>
+E              - unexpected value "cup × 1 Delete"
+E       
+E       Aria snapshot:
+E       - listitem:
+E         - text: cup × 1
+E         - button "Delete"
+
+tests/test_ui.py:66: AssertionError
+=============================== warnings summary ===============================
+../../../../../../../../opt/venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /opt/venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+- generated xml file: /builds/orders-app/junit.xml -
+=========================== short test summary info ============================
+FAILED tests/test_ui.py::test_add_several_orders[chromium] - AssertionError: ...
+=================== 1 failed, 22 passed, 1 warning in 4.73s ====================

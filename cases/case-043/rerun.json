@@ -1,0 +1,10 @@
+{
+  "failed": [
+    "tests.test_ui::test_add_order_shows_in_list[chromium]",
+    "tests.test_ui::test_newest_order_is_first[chromium]",
+    "tests.test_ui::test_form_clears_after_add[chromium]",
+    "tests.test_ui::test_blank_item_shows_error[chromium]",
+    "tests.test_ui::test_delete_removes_order[chromium]",
+    "tests.test_ui::test_existing_orders_load_on_open[chromium]"
+  ]
+}
